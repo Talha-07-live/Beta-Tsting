@@ -1,40 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASH Player</title>
-    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        video {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+  <meta charset="utf-8">
+  <title>Shaka Player Demo</title>
+  <!-- Shaka Player library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.2.1/shaka-player.compiled.js"></script>
+  <style>
+    video {
+      width: 100%;
+      height: auto;
+    }
+  </style>
 </head>
 <body>
-    <h1>DASH Streaming Player</h1>
-    <video id="videoPlayer" controls width="640" height="360"></video>
+  <video id="video" controls autoplay></video>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize the shaka player
+      var video = document.getElementById('video');
+      var player = new shaka.Player(video);
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const url = 'https://live-hls-abr-cdn.livepush.io/live/bigbuckbunnyclip/index.mpd';
-            const videoPlayer = document.getElementById('videoPlayer');
-            const player = dashjs.MediaPlayer().create();
-            player.initialize(videoPlayer, url, true);
-        });
-    </script>
+      // Attach the player to the window to make it easy to access in the JS console
+      window.player = player;
+
+      // Listen for error events
+      player.addEventListener('error', onErrorEvent);
+
+      // Try to load a manifest
+      player.load('https://live-hls-abr-cdn.livepush.io/live/bigbuckbunnyclip/index.mpd').then(function() {
+        console.log('The video has now been loaded!');
+      }).catch(onError);  // onError is executed if the asynchronous load fails.
+
+      function onErrorEvent(event) {
+        onError(event.detail);
+      }
+
+      function onError(error) {
+        console.error('Error code', error.code, 'object', error);
+      }
+    });
+  </script>
 </body>
 </html>
