@@ -26,11 +26,11 @@
 </head>
 <body>
     <h1>DASH Streaming Player</h1>
-    <video id="videoPlayer" controls></video>
+    <video id="videoPlayer" controls width="640" height="360"></video>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const url = "https://live-hls-abr-cdn.livepush.io/live/bigbuckbunnyclip/index.mpd";
+            const url = 'https://live-hls-abr-cdn.livepush.io/live/bigbuckbunnyclip/index.mpd';
             const videoPlayer = document.getElementById('videoPlayer');
             const player = dashjs.MediaPlayer().create();
             player.initialize(videoPlayer, url, true);
