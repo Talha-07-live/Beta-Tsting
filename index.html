@@ -4,40 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Video Player</title>
-    <script src="https://cdn.jwplayer.com/libraries/your_library_id.js"></script>
-    <style>
-        #player {
-            width: 640px;
-            height: 360px;
-        }
-    </style>
+    <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+    <script src="https://unpkg.com/video.js/dist/video.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls/dist/videojs-contrib-hls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-dash/dist/videojs-dash.min.js"></script>
 </head>
 <body>
-    <div id="player"></div>
+    <video id="premium-player" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264">
+        <source src="YOUR_VIDEO_URL.mpd" type="application/dash+xml">
+        <source src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8" type="application/x-mpegURL">
+    </video>
 
     <script>
-        jwplayer("player").setup({
-            playlist: [{
-                sources: [
-                    { file: "https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8", type: "hls" },
-                    { file: "YOUR_VIDEO_URL.mpd", type: "dash" }
-                ]
-            }],
-            drm: {
-                widevine: {
-                    url: "YOUR_WIDEVINE_LICENSE_URL"
-                },
-                playready: {
-                    url: "YOUR_PLAYREADY_LICENSE_URL"
-                }
-            },
-            width: "100%",
-            aspectratio: "16:9",
-            primary: "html5"
-        });
+        var player = videojs('premium-player');
 
-        jwplayer().on('ready', function() {
+        player.ready(function() {
             console.log('Player is ready');
+            
+            // DRM setup (example using Widevine)
+            player.src({
+                src: 'YOUR_DRM_VIDEO_URL.mpd',
+                type: 'application/dash+xml',
+                keySystems: {
+                    'com.widevine.alpha': {
+                        url: 'YOUR_WIDEVINE_LICENSE_URL'
+                    }
+                }
+            });
         });
     </script>
 </body>
