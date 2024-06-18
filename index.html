@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HLS Player with hls.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         body {
             margin: 0;
@@ -18,20 +19,10 @@
             width: 640px;
             height: 360px;
         }
-        .vjs-logo {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 10;
-            width: 100px; /* Adjust size as needed */
-        }
     </style>
 </head>
 <body>
-    <div style="position: relative;">
-        <video id="video-player" controls poster="https://s10.gifyu.com/images/SYGkR.jpg"></video>
-        <img src="https://s12.gifyu.com/images/SrMx2.png" class="vjs-logo" alt="Logo">
-    </div>
+    <video id="video-player" controls></video>
 
     <script>
         if (Hls.isSupported()) {
