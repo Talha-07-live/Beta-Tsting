@@ -56,6 +56,7 @@
 
 <div class="video-container">
   <video id="myVideo" controls autoplay poster="https://s10.gifyu.com/images/SYGkR.jpg">
+    <!-- Replace with a fallback video source if WebTorrent is not supported -->
     <source src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8" type="application/x-mpegURL">
     Your browser does not support the video tag or HLS streams.
   </video>
@@ -63,6 +64,26 @@
     <img src="https://s10.gifyu.com/images/SrMU9.png" alt="Logo">
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webtorrent/0.107.0/webtorrent.min.js"></script>
+<script>
+  // Initialize WebTorrent client
+  var client = new WebTorrent();
+
+  // Add your torrent file or magnet URI here
+  var magnetURI = 'magnet:?xt=urn:btih:YOUR_TORRENT_HASH';
+
+  // Start streaming the torrent
+  client.add(magnetURI, function (torrent) {
+    // Select the appropriate file from the torrent
+    var file = torrent.files.find(function (file) {
+      return file.name.endsWith('.mp4'); // Adjust the file type as needed
+    });
+
+    // Stream the file into the video element
+    file.createReadStream().pipe(document.getElementById('myVideo'));
+  });
+</script>
 
 </body>
 </html>
