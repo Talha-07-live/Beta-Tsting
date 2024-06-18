@@ -1,16 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play HLS Stream</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Video Container Example</title>
+<style>
+  /* Styles for the video container */
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  /* Styles for the video itself */
+  .video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
 </head>
 <body>
-    <h2>Streaming HLS Video</h2>
-    
-    <video controls autoplay width="640" height="360">
-        <source src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8" type="application/x-mpegURL">
-        Your browser does not support the video tag or HLS streams.
-    </video>
+
+<div class="video-container">
+  <video controls autoplay>
+    <source src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8" type="application/x-mpegURL">
+    Your browser does not support the video tag or HLS streams.
+  </video>
+</div>
+
 </body>
 </html>
