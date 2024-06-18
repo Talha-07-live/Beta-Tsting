@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Responsive Video Container Example</title>
+<title>Responsive Video Container with Thumbnail and Logo</title>
 <style>
   /* Styles for the video container */
   .video-container {
@@ -12,6 +12,7 @@
     height: 0;
     overflow: hidden;
     max-width: 100%;
+    background: #000; /* Optional: Background color for the video container */
   }
 
   /* Styles for the video itself */
@@ -22,15 +23,46 @@
     width: 100%;
     height: 100%;
   }
+
+  /* Styles for the thumbnail */
+  .video-container .thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://s10.gifyu.com/images/SYGkR.jpg');
+    background-size: cover;
+    z-index: 1; /* Ensure thumbnail is above video */
+  }
+
+  /* Styles for the logo */
+  .video-container .logo {
+    position: absolute;
+    bottom: 10px;
+    left: 10px; /* Adjusted to left instead of right */
+    width: auto; /* Adjusts the width automatically */
+    max-width: 20%; /* Limits the maximum width of the logo */
+    height: auto; /* Adjusts the height automatically */
+    z-index: 2; /* Ensure logo is above everything */
+  }
+
+  @media (max-width: 768px) {
+    .video-container .logo {
+      max-width: 30%; /* Adjust the maximum width for smaller screens */
+    }
+  }
 </style>
 </head>
 <body>
 
 <div class="video-container">
+  <div class="thumbnail"></div>
   <video controls autoplay>
     <source src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8" type="application/x-mpegURL">
     Your browser does not support the video tag or HLS streams.
   </video>
+  <img src="https://s12.gifyu.com/images/SrMx2.png" alt="Logo" class="logo">
 </div>
 
 </body>
