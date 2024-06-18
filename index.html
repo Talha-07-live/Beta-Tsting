@@ -1,108 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P2P HLS Player Example</title>
-<style>
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
-
-  .video-container {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    overflow: hidden;
-    background-color: #000; /* Fallback background color */
-  }
-
-  .video-container video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .logo-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
-    opacity: 0.7; /* Adjust the opacity as needed */
-  }
-
-  .logo-overlay img {
-    width: 100px; /* Adjust the width of the logo as needed */
-    height: auto;
-  }
-
-  @media (max-width: 768px) {
-    .logo-overlay {
-      top: 10px;
-      left: 280px;
-      transform: none;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Video Player Example</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
     }
-  }
-</style>
+
+    /* Container for positioning elements */
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Video player */
+    .video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70%; /* Adjust height as needed */
+      background-color: #000; /* Fallback background color */
+    }
+
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Logo overlay */
+    .logo-overlay {
+      position: absolute;
+      top: 20px; /* Adjust top margin */
+      right: 20px; /* Adjust right margin */
+      z-index: 10;
+      opacity: 0.9; /* Adjust opacity as needed */
+    }
+
+    .logo-overlay img {
+      width: 80px; /* Adjust logo width */
+      height: auto;
+    }
+
+    /* Ticker text */
+    .ticker-container {
+      position: absolute;
+      bottom: 20px; /* Adjust bottom margin */
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%);
+      width: 80%; /* Adjust width as needed */
+      background-color: rgba(0, 0, 0, 0.8); /* Adjust background color and opacity */
+      color: #fff;
+      font-size: 16px; /* Adjust font size */
+      padding: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Colorful light animation */
+    .colorful-light {
+      position: absolute;
+      top: 50%; /* Center vertically */
+      left: 50%; /* Center horizontally */
+      transform: translate(-50%, -50%);
+      width: 200px; /* Adjust width */
+      height: 200px; /* Adjust height */
+      border-radius: 50%;
+      animation: color-change 9s linear infinite; /* Change color every 3 seconds */
+      box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+    }
+
+    @keyframes color-change {
+      0% {
+        background-color: #f00;
+      }
+      33% {
+        background-color: #0f0;
+      }
+      66% {
+        background-color: #00f;
+      }
+      100% {
+        background-color: #f00;
+      }
+    }
+
+    /* Buttons */
+    .buttons-container {
+      position: absolute;
+      top: 80%; /* Adjust top position */
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%);
+      text-align: center;
+      margin-top: 20px; /* Adjust top margin */
+    }
+
+    .buttons-container button {
+      margin: 0 10px; /* Adjust horizontal spacing */
+      padding: 10px 20px; /* Adjust padding */
+      font-size: 16px; /* Adjust font size */
+    }
+
+    /* Footer text */
+    .footer-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 14px; /* Adjust font size */
+      color: #555;
+      padding: 10px 0; /* Adjust padding */
+      background-color: #f0f0f0; /* Background color */
+    }
+  </style>
 </head>
 <body>
 
-<div class="video-container">
-  <video id="myVideo" controls autoplay poster="https://s10.gifyu.com/images/SYGkR.jpg">
-    <!-- HLS source URL -->
-    <source src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8" type="application/x-mpegURL">
-    Your browser does not support the video tag or HLS streams.
-  </video>
+<div class="container">
+
+  <!-- Logo overlay -->
   <div class="logo-overlay">
     <img src="https://s10.gifyu.com/images/SrMU9.png" alt="Logo">
   </div>
+
+  <!-- Video player -->
+  <div class="video-container">
+    <video id="myVideo" controls autoplay poster="https://s10.gifyu.com/images/SYGkR.jpg">
+      <!-- Replace with a fallback video source if WebTorrent is not supported -->
+      <source src="https://dai.google.com/ssai/event/MU1Tz6gxSAuGNMvGmokn4A/master.m3u8" type="application/x-mpegURL">
+      Your browser does not support the video tag or HLS streams.
+    </video>
+  </div>
+
+  <!-- Ticker text -->
+  <div class="ticker-container">
+    abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij
+  </div>
+
+  <!-- Colorful light animation -->
+  <div class="colorful-light"></div>
+
+  <!-- Buttons -->
+  <div class="buttons-container">
+    <button onclick="redirectTo('https://example.com/page1')">Talha1</button>
+    <button onclick="redirectTo('https://example.com/page2')">Talha2</button>
+  </div>
+
+  <!-- Footer text -->
+  <div class="footer-text">
+    Made By Talha
+  </div>
+
 </div>
 
-<!-- Include hls.js library -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<!-- Include P2P Media Loader library -->
-<script src="https://cdn.jsdelivr.net/npm/p2p-media-loader-core@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webtorrent/0.107.0/webtorrent.min.js"></script>
 <script>
-  var video = document.getElementById('myVideo');
-  var hls = new Hls();
+  // Initialize WebTorrent client
+  var client = new WebTorrent();
 
-  // Check if HLS is supported
-  if (Hls.isSupported()) {
-    hls.loadSource('https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8');
-    hls.attachMedia(video);
-    
-    hls.on(Hls.Events.MANIFEST_PARSED, function () {
-      video.play();
-    });
-  }
-  // If not supported, fall back to standard video tag
-  else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = 'https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8';
-    video.addEventListener('loadedmetadata', function() {
-      video.play();
-    });
-  }
+  // Add your torrent file or magnet URI here
+  var magnetURI = 'magnet:?xt=urn:btih:YOUR_TORRENT_HASH';
 
-  // Initialize P2P Media Loader
-  var loader = new P2PMediaLoader({
-    segments: {
-      path: 'https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8',
-      xhrSetup: function (xhr, url) {
-        // Optionally, add headers or configurations here
-      }
-    }
+  // Start streaming the torrent
+  client.add(magnetURI, function (torrent) {
+    // Select the appropriate file from the torrent
+    var file = torrent.files.find(function (file) {
+      return file.name.endsWith('.mp4'); // Adjust the file type as needed
+    });
+
+    // Stream the file into the video element
+    file.createReadStream().pipe(document.getElementById('myVideo'));
   });
 
-  loader.init(video);
+  // Function to redirect to a URL
+  function redirectTo(url) {
+    window.location.href = url;
+  }
 </script>
 
 </body>
