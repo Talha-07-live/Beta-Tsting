@@ -1,1 +1,38 @@
-<iframe frameborder="0" allowfullscreen="" scrolling="no" allow="autoplay;fullscreen" src="https://onelineplayer.com/player.html?autoplay=false&autopause=true&muted=false&loop=false&url=https%3A%2F%2Fdai.google.com%2Fssai%2Fevent%2FoZNVxALASVyYS4HMtTpRCw%2Fmaster.m3u8&poster=https%3A%2F%2Fs10.gifyu.com%2Fimages%2FSYGkR.jpg&time=true&progressBar=false&overlay=true&muteButton=true&fullscreenButton=true&style=light&quality=auto&playButton=true" style="height: 100%; width: 100%; aspect-ratio: 426 / 240;"></iframe>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+    <script src="https://unpkg.com/video.js/dist/video.js"></script>
+    <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
+        .video-js {
+            width: 640px;
+            height: 360px;
+        }
+    </style>
+</head>
+<body>
+    <video id="hls-player" class="video-js vjs-default-skin" controls preload="auto">
+        <source src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8" type="application/x-mpegURL">
+    </video>
+
+    <script>
+        var player = videojs('hls-player');
+        player.ready(function() {
+            console.log('Player is ready');
+        });
+    </script>
+</body>
+</html>
