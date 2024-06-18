@@ -1,1 +1,44 @@
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width:100%;"><iframe style="position: absolute; top: 0; left: 0; width: 50%; height: 50%;" src="https://anym3u8player.com/p2p-player-generator-jwplayer/mplay.php?data=nCLCQmLtFml/wHRSNI+EmeWTWnrTuwNS1UELhFRDZivGPl8Wq+TtidjakH1n4HZRIQoIRKgpQOGp3mqMwYFt3MBuHV7a3IGP5h/3sBMQ7eyhrpGm3PHOIXuAEzS/rBAqQEWyaDNOHTYvcXAcQ73An20K9bp7LgjkqXCS48FtYcJHN1xEb0DCbKIGhCWIESRqlTOPHLarhfng6oNsVd8N3Ih9Sm08yM/IiQmsbNS40R6U3Cv1mkS2FQgWo4ZT0OU4t3uhHTsOo3kZl8c3mNwUjbPehEKYU16R/mTPwoY+fk7zd/1Q7DdJdGIVRHuH/Q==" frameborder="0" allow="autoplay" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Video Player</title>
+    <script src="https://cdn.jwplayer.com/libraries/your_library_id.js"></script>
+    <style>
+        #player {
+            width: 640px;
+            height: 360px;
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+
+    <script>
+        jwplayer("player").setup({
+            playlist: [{
+                sources: [
+                    { file: "https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8", type: "hls" },
+                    { file: "YOUR_VIDEO_URL.mpd", type: "dash" }
+                ]
+            }],
+            drm: {
+                widevine: {
+                    url: "YOUR_WIDEVINE_LICENSE_URL"
+                },
+                playready: {
+                    url: "YOUR_PLAYREADY_LICENSE_URL"
+                }
+            },
+            width: "100%",
+            aspectratio: "16:9",
+            primary: "html5"
+        });
+
+        jwplayer().on('ready', function() {
+            console.log('Player is ready');
+        });
+    </script>
+</body>
+</html>
