@@ -8,10 +8,11 @@
   /* Styles for the video container */
   .video-container {
     position: relative;
+    width: 100%;
+    max-width: 800px; /* Adjust maximum width as needed */
+    margin: 0 auto; /* Center the container horizontally */
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
     overflow: hidden;
-    max-width: 100%;
     background: #000; /* Optional: Background color for the video container */
   }
 
@@ -41,15 +42,13 @@
     position: absolute;
     top: 10px; /* Adjusted to top instead of bottom */
     left: 10px; /* Adjusted to left instead of right */
-    width: auto; /* Adjusts the width automatically */
-    max-width: 20%; /* Limits the maximum width of the logo */
-    height: auto; /* Adjusts the height automatically */
+    width: 80px; /* Adjust width as needed */
     z-index: 2; /* Ensure logo is above everything */
   }
 
   @media (max-width: 768px) {
     .video-container .logo {
-      max-width: 30%; /* Adjust the maximum width for smaller screens */
+      width: 60px; /* Adjust width for smaller screens */
     }
   }
 </style>
