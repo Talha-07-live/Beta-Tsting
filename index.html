@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Enhanced HLS Player</title>
     <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
     <script src="https://unpkg.com/video.js/dist/video.js"></script>
     <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.min.js"></script>
@@ -21,12 +21,22 @@
             width: 640px;
             height: 360px;
         }
+        .vjs-logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            width: 100px; /* Adjust size as needed */
+        }
     </style>
 </head>
 <body>
-    <video id="hls-player" class="video-js vjs-default-skin" controls preload="auto">
-        <source src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8" type="application/x-mpegURL">
-    </video>
+    <div style="position: relative;">
+        <video id="hls-player" class="video-js vjs-default-skin" controls preload="auto" poster="https://s10.gifyu.com/images/SYGkR.jpg">
+            <source src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8" type="application/x-mpegURL">
+        </video>
+        <img src="https://s12.gifyu.com/images/SrMx2.png" class="vjs-logo" alt="Logo">
+    </div>
 
     <script>
         var player = videojs('hls-player');
