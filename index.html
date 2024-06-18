@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced HLS Player</title>
-    <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
-    <script src="https://unpkg.com/video.js/dist/video.js"></script>
-    <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.min.js"></script>
+    <title>HLS Player with hls.js</title>
     <style>
         body {
             margin: 0;
@@ -17,7 +14,7 @@
             height: 100vh;
             background-color: #000;
         }
-        .video-js {
+        video {
             width: 640px;
             height: 360px;
         }
@@ -32,17 +29,34 @@
 </head>
 <body>
     <div style="position: relative;">
-        <video id="hls-player" class="video-js vjs-default-skin" controls preload="auto" poster="https://s10.gifyu.com/images/SYGkR.jpg">
-            <source src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8" type="application/x-mpegURL">
-        </video>
+        <video id="video-player" controls poster="https://s10.gifyu.com/images/SYGkR.jpg"></video>
         <img src="https://s12.gifyu.com/images/SrMx2.png" class="vjs-logo" alt="Logo">
     </div>
 
     <script>
-        var player = videojs('hls-player');
-        player.ready(function() {
-            console.log('Player is ready');
-        });
+        if (Hls.isSupported()) {
+            var video = document.getElementById('video-player');
+            var hls = new Hls();
+            
+            // HLS stream URL
+            var hlsUrl = 'https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8';
+            
+            hls.loadSource(hlsUrl);
+            hls.attachMedia(video);
+            
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                video.play();
+            });
+        }
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = 'https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8';
+            video.addEventListener('loadedmetadata', function () {
+                video.play();
+            });
+        }
+        else {
+            console.error('HLS not supported');
+        }
     </script>
 </body>
 </html>
