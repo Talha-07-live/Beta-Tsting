@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Responsive Video Player Example</title>
+<title>P2P HLS Player Example</title>
 <style>
   body, html {
     margin: 0;
@@ -46,7 +46,7 @@
   @media (max-width: 768px) {
     .logo-overlay {
       top: 10px;
-      left: 320px;
+      left: 280px;
       transform: none;
     }
   }
@@ -56,7 +56,7 @@
 
 <div class="video-container">
   <video id="myVideo" controls autoplay poster="https://s10.gifyu.com/images/SYGkR.jpg">
-    <!-- Replace with a fallback video source if WebTorrent is not supported -->
+    <!-- HLS source URL -->
     <source src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8" type="application/x-mpegURL">
     Your browser does not support the video tag or HLS streams.
   </video>
@@ -65,24 +65,43 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webtorrent/0.107.0/webtorrent.min.js"></script>
+<!-- Include hls.js library -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<!-- Include P2P Media Loader library -->
+<script src="https://cdn.jsdelivr.net/npm/p2p-media-loader-core@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-  // Initialize WebTorrent client
-  var client = new WebTorrent();
+  var video = document.getElementById('myVideo');
+  var hls = new Hls();
 
-  // Add your torrent file or magnet URI here
-  var magnetURI = 'magnet:?xt=urn:btih:YOUR_TORRENT_HASH';
-
-  // Start streaming the torrent
-  client.add(magnetURI, function (torrent) {
-    // Select the appropriate file from the torrent
-    var file = torrent.files.find(function (file) {
-      return file.name.endsWith('.mp4'); // Adjust the file type as needed
+  // Check if HLS is supported
+  if (Hls.isSupported()) {
+    hls.loadSource('https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8');
+    hls.attachMedia(video);
+    
+    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+      video.play();
     });
+  }
+  // If not supported, fall back to standard video tag
+  else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = 'https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8';
+    video.addEventListener('loadedmetadata', function() {
+      video.play();
+    });
+  }
 
-    // Stream the file into the video element
-    file.createReadStream().pipe(document.getElementById('myVideo'));
+  // Initialize P2P Media Loader
+  var loader = new P2PMediaLoader({
+    segments: {
+      path: 'https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/',
+      xhrSetup: function (xhr, url) {
+        // Optionally, add headers or configurations here
+      }
+    }
   });
+
+  loader.init(video);
 </script>
 
 </body>
