@@ -70,6 +70,7 @@
 <!-- Include P2P Media Loader library -->
 <script src="https://cdn.jsdelivr.net/npm/p2p-media-loader-core@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
   var video = document.getElementById('myVideo');
   var hls = new Hls();
@@ -94,7 +95,7 @@
   // Initialize P2P Media Loader
   var loader = new P2PMediaLoader({
     segments: {
-      path: 'https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/',
+      path: 'https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8',
       xhrSetup: function (xhr, url) {
         // Optionally, add headers or configurations here
       }
