@@ -12,6 +12,7 @@
     height: 0;
     overflow: hidden;
     max-width: 100%;
+    background: #000; /* Optional: Background color for the video container */
   }
 
   /* Styles for the video itself */
@@ -38,10 +39,18 @@
   /* Styles for the logo */
   .video-container .logo {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 80px; /* Adjust size as needed */
+    top: 10px; /* Adjusted to top instead of bottom */
+    left: 10px; /* Adjusted to left instead of right */
+    width: auto; /* Adjusts the width automatically */
+    max-width: 20%; /* Limits the maximum width of the logo */
+    height: auto; /* Adjusts the height automatically */
     z-index: 2; /* Ensure logo is above everything */
+  }
+
+  @media (max-width: 768px) {
+    .video-container .logo {
+      max-width: 30%; /* Adjust the maximum width for smaller screens */
+    }
   }
 </style>
 </head>
