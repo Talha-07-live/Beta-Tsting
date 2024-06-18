@@ -3,17 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Responsive Video Container with Thumbnail and Logo</title>
+<title>Responsive Video Container Example</title>
 <style>
   /* Styles for the video container */
   .video-container {
     position: relative;
-    width: 100%;
-    max-width: 800px; /* Adjust maximum width as needed */
-    margin: 0 auto; /* Center the container horizontally */
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
     overflow: hidden;
-    background: #000; /* Optional: Background color for the video container */
+    max-width: 100%;
   }
 
   /* Styles for the video itself */
@@ -23,7 +21,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensure video fills the container */
   }
 
   /* Styles for the thumbnail */
@@ -41,8 +38,8 @@
   /* Styles for the logo */
   .video-container .logo {
     position: absolute;
-    top: 10px; /* Adjusted to top instead of bottom */
-    left: 10px; /* Adjusted to left instead of right */
+    top: 10px;
+    left: 10px;
     width: 80px; /* Adjust width as needed */
     z-index: 2; /* Ensure logo is above everything */
   }
