@@ -56,6 +56,7 @@
             position: relative;
             width: 90%;
             max-width: 800px;
+        }
         .ticker-container {
             position: absolute;
             bottom: -70px;
@@ -95,6 +96,23 @@
         }
         .support-button:hover {
             background-color: #28a745;
+        }
+        #cricket-btn {
+            position: absolute;
+            top: -300px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        #cricket-btn:hover {
+            background-color: #d9534f;
         }
         footer {
             margin-top: 150px;
@@ -158,6 +176,7 @@
         <h1>Enter Password</h1>
         <input type="password" id="password" placeholder="Password">
         <button id="submit-btn">Submit</button>
+        <button id="cricket-btn" onclick="redirectToCricket()">Cricket World Cup Live</button>
     </div>
     <div class="video-container">
         <img src="https://s12.gifyu.com/images/SYa8u.png" alt="Logo" class="logo">
@@ -168,7 +187,6 @@
                 <!-- Options will be dynamically populated -->
             </select>
         </div>
-        <button class="support-button" onclick="openSupport()">Support</button>
         <button class="support-button" onclick="openSupport()">Support</button>
         <button id="cricket-btn" onclick="redirectToCricket()">Cricket World Cup Live</button>
         <div class="ticker-container">
@@ -195,6 +213,7 @@
 
                 videoPlayer.load();
                 videoPlayer.play();
+                tickerContainer.style.display = 'block'; // Show ticker after successful login
             } else {
                 alert('Incorrect password. Please try again.');
             }
@@ -202,6 +221,10 @@
 
         function openSupport() {
             window.open("https://t.me/talhasmovie_request_bot", "_blank");
+        }
+
+        function redirectToCricket() {
+            window.location.href = "https://photospace.life/CUFIE5";
         }
     </script>
 </body>
