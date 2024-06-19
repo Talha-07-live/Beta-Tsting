@@ -20,6 +20,7 @@
 
     /* Video player */
     .video-container {
+      display: none; /* Hide initially */
       position: absolute;
       top: 0;
       left: 0;
@@ -36,6 +37,7 @@
 
     /* Logo overlay */
     .logo-overlay {
+      display: none; /* Hide initially */
       position: absolute;
       top: 20px; /* Adjust top margin */
       right: 20px; /* Adjust right margin */
@@ -50,6 +52,7 @@
 
     /* Ticker text */
     .ticker-container {
+      display: none; /* Hide initially */
       position: absolute;
       bottom: 20px; /* Adjust bottom margin */
       left: 50%; /* Center horizontally */
@@ -75,6 +78,7 @@
 
     /* Colorful light animation */
     .colorful-light {
+      display: none; /* Hide initially */
       position: absolute;
       top: 50%; /* Center vertically */
       left: 50%; /* Center horizontally */
@@ -103,6 +107,7 @@
 
     /* Buttons */
     .buttons-container {
+      display: none; /* Hide initially */
       position: absolute;
       top: 80%; /* Adjust top position */
       left: 50%; /* Center horizontally */
@@ -229,7 +234,11 @@
     if (password === 'Talha') {
       // Password correct, proceed with displaying video or other action
       document.getElementById('password-form').style.display = 'none'; // Hide password form
-      document.getElementById('myVideo').style.display = 'block'; // Show video element or other action
+      document.querySelector('.video-container').style.display = 'block'; // Show video container
+      document.querySelector('.ticker-container').style.display = 'block'; // Show ticker container
+      document.querySelector('.buttons-container').style.display = 'block'; // Show buttons
+      document.querySelector('.colorful-light').style.display = 'block'; // Show colorful light
+      document.querySelector('.logo-overlay').style.display = 'block'; // Show logo overlay
     } else {
       // Incorrect password handling (e.g., show error message)
       alert('Incorrect password. Please try again.');
