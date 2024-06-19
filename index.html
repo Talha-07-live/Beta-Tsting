@@ -61,7 +61,16 @@
       padding: 10px;
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
+      animation: ticker 10s linear infinite;
+    }
+
+    @keyframes ticker {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
     }
 
     /* Colorful light animation */
@@ -119,6 +128,22 @@
       color: #555;
       padding: 10px 0; /* Adjust padding */
       background-color: #f0f0f0; /* Background color */
+      font-weight: bold;
+      color: transparent;
+      background-image: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+      background-size: 100%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      animation: rainbow 5s linear infinite;
+    }
+
+    @keyframes rainbow {
+      0% {
+        background-position: 0 50%;
+      }
+      100% {
+        background-position: 100% 50%;
+      }
     }
   </style>
 </head>
@@ -159,6 +184,21 @@
     Made By Talha
   </div>
 
+  <!-- Visit counter from Free-Counters.org -->
+  <div style="position: absolute; top: 90%; left: 50%; transform: translateX(-50%);">
+    <a href='https://www.free-counters.org/'>https://www.Free-Counters.org</a>
+    <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=1bbd72dc44b61eeb230124d75f064506e625a5d6'></script>
+    <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1194402/t/1"></script>
+  </div>
+
+  <!-- Password login form -->
+  <div id="password-form" style="position: absolute; top: 30%; left: 50%; transform: translateX(-50%);">
+    <form id="login-form" onsubmit="authenticate(event)">
+      <input type="password" id="password-input" placeholder="Enter password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/webtorrent/0.107.0/webtorrent.min.js"></script>
@@ -179,6 +219,22 @@
     // Stream the file into the video element
     file.createReadStream().pipe(document.getElementById('myVideo'));
   });
+
+  // Function to authenticate
+  function authenticate(event) {
+    event.preventDefault();
+    var password = document.getElementById('password-input').value;
+
+    // Compare entered password with the correct password
+    if (password === 'Talha') {
+      // Password correct, proceed with displaying video or other action
+      document.getElementById('password-form').style.display = 'none'; // Hide password form
+      document.getElementById('myVideo').style.display = 'block'; // Show video element or other action
+    } else {
+      // Incorrect password handling (e.g., show error message)
+      alert('Incorrect password. Please try again.');
+    }
+  }
 
   // Function to redirect to a URL
   function redirectTo(url) {
