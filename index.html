@@ -1,30 +1,25 @@
-{
-	"playlist": [
-		{
-			"sources": [
-				{
-					"default": false,
-					"type": "hls",
-					"file": "https://tv5.hoichoi24.com/1102/index.m3u8",
-					"drm": {
-						"fairplay": {}
-					},
-					"label": "0"
-				},
-				{
-					"default": true,
-					"type": "hls",
-					"file": "https://tv5.hoichoi24.com/1102/index.m3u8",
-					"drm": {
-						"widevine": {},
-						"playready": {}
-					},
-					"label": "1"
-				}
-			]
-		}
-	],
-	"primary": "html5",
-	"hlshtml": true,
-	"autostart": false
-}
+<!-- Include Radiant Media Player - here we use the optimised build for hls.js -->
+<script src="https://cdn.radiantmediatechs.com/rmp/9.15.10/js/rmp-hlsjs.min.js"></script>
+<!-- Player container element -->
+<div id="rmp"></div>
+<!-- Set up player configuration options -->
+<script>
+  // Live HLS streaming source
+  const src = {
+    hls: 'https://tv5.hoichoi24.com/1102/index.m3u8'
+  };
+  // Your player settings
+  const settings = {
+    licenseKey: 'your-license-key',
+    src: src,
+    width: 640,
+    height: 360,
+    contentMetadata: {
+      poster: [
+        'https://your-poster-url.jpg'
+      ]
+    }
+  };
+  const rmp = new RadiantMP('rmp');
+  rmp.init(settings);
+</script>
