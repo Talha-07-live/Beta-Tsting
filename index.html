@@ -70,6 +70,14 @@
             padding-left: 100%; /* Start off-screen */
             animation: ticker-animation 60s linear infinite; /* Adjust animation duration as needed */
         }
+        @keyframes ticker-animation {
+            0% {
+                transform: translateX(2%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
         .quality-controls {
             position: absolute;
             top: 10px;
