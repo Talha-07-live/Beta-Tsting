@@ -177,9 +177,10 @@
         }
         .logo-top-right {
             position: absolute;
-            top: 50px;
+            top: 10px;
             right: 10px;
             width: 100px; /* Adjust the size of the top-right logo */
+            display: none; /* Initially hide logo */
         }
         .visitor-counter {
             position: absolute;
@@ -203,8 +204,8 @@
     </div>
     <div class="video-container">
         <img src="https://s12.gifyu.com/images/SYa8u.png" alt="Logo" class="logo">
-        <video id="my-video" controls width="100%" height="225px" poster="https://s10.gifyu.com/images/SYGkR.jpg" src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8"></video>
-        <img src="https://s12.gifyu.com/images/SrMx2.png" alt="Logo Top Right" class="logo-top-right">
+        <video id="my-video" controls width="100%" height="225px" poster="thumbnail.jpg" src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8"></video>
+        <img src="https://example.com/logo.png" alt="Logo Top Right" class="logo-top-right" id="logo-top-right">
         <div class="quality-controls">
             <label for="quality-options">Select Quality:</label>
             <select id="quality-options">
@@ -235,6 +236,7 @@
         const videoPlayer = document.getElementById('my-video');
         const tickerContainer = document.querySelector('.ticker-container'); // Select the ticker container
         const qualityControls = document.querySelector('.quality-controls');
+        const logoTopRight = document.getElementById('logo-top-right');
 
         submitBtn.addEventListener('click', () => {
             if (passwordInput.value === PASSWORD) {
@@ -242,6 +244,7 @@
                 videoPlayer.style.display = 'block';
                 tickerContainer.style.display = 'block'; // Show ticker after successful login
                 qualityControls.style.display = 'block';
+                logoTopRight.style.display = 'block'; // Show the top-right logo after successful login
 
                 videoPlayer.load();
                 videoPlayer.play();
