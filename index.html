@@ -1,9 +1,11 @@
+</body>
+</html>
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talha-07-Live</title>
+    <title>Talha's M3U8 Stream</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,255 +16,174 @@
             background-color: #f0f0f0;
             margin: 0;
             flex-direction: column;
-     }
-     #login-form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+        }
+        #login-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #my-video {
+            position: absolute;
+            top: -200px;
+            left: -14px;
+            width: 105%;
+            max-width: 1000px;
+            border: 5px solid transparent;
+            border-radius: 10px;
+            animation: border-animation 5s infinite;
+            background-clip: border-box;
+            display: none; /* Initially hide iframe */
+        }
+        #password {
+            padding: 10px;
+            font-size: 16px;
+        }
+        #submit-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        #submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .video-container {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+        }
+        .quality-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            display: none;
+        }
+        .support-button {
+         position: absolute;
+            top: -250px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;   
+        }
+        .support-button:hover {
+            background-color: #28a745;
+        }
+        footer {
+            margin-top: 150px;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+        }
+        .footer-text {
+            font-size: 16px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #ff9f43, #feca57, #48dbfb, #1dd1a1, #f368e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-animation 5s infinite;
+            background-size: 300%;
+        }
 
-    /* Container for positioning elements */
-    .container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
-    /* Video player */
-    .video-container {
-      width: 100%;
-      max-width: 1000px;
-      border: 5px solid transparent;
-      border-radius: 10px;
-      animation: border-animation 5s infinite;
-      background-clip: border-box;
-      display: none; /* Initially hide HLS video player */
-    }
-    .video-container video {
-      position: relative;
-      width: 90%;
-      max-width: 800px;
-      display: flex;
-      justify-content: center;
-      margin-top: 20px; /* Added margin to separate from login form */
-      position: relative; /* Added relative positioning */
-    }
-
-    /* Logo overlay */
-    .logo-overlay {
-      display: none; /* Hide initially */
-      position: absolute;
-      top: 20px; /* Adjust top margin */
-      right: 20px; /* Adjust right margin */
-      z-index: 10;
-      opacity: 0.9; /* Adjust opacity as needed */
-    }
-
-    .logo-overlay img {
-      width: 80px; /* Adjust logo width */
-      height: auto;
-    }
-
-    /* Ticker text */
-    .ticker-container {
-      display: none; /* Hide initially */
-      position: absolute;
-      bottom: 20px; /* Adjust bottom margin */
-      left: 50%; /* Center horizontally */
-      transform: translateX(-50%);
-      width: 80%; /* Adjust width as needed */
-      background-color: rgba(0, 0, 0, 0.8); /* Adjust background color and opacity */
-      color: #fff;
-      font-size: 16px; /* Adjust font size */
-      padding: 10px;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: ticker 10s linear infinite;
-    }
-
-    @keyframes ticker {
-      0% {
-        transform: translateX(100%);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-
-    /* Colorful light animation */
-    .colorful-light {
-      display: none; /* Hide initially */
-      position: absolute;
-      top: 50%; /* Center vertically */
-      left: 50%; /* Center horizontally */
-      transform: translate(-50%, -50%);
-      width: 200px; /* Adjust width */
-      height: 200px; /* Adjust height */
-      border-radius: 50%;
-      animation: color-change 9s linear infinite; /* Change color every 3 seconds */
-      box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
-    }
-
-    @keyframes color-change {
-      0% {
-        background-color: #f00;
-      }
-      33% {
-        background-color: #0f0;
-      }
-      66% {
-        background-color: #00f;
-      }
-      100% {
-        background-color: #f00;
-      }
-    }
-
-    /* Buttons */
-    .buttons-container {
-      display: none; /* Hide initially */
-      position: absolute;
-      top: 80%; /* Adjust top position */
-      left: 50%; /* Center horizontally */
-      transform: translateX(-50%);
-      text-align: center;
-      margin-top: 20px; /* Adjust top margin */
-    }
-
-    .buttons-container button {
-      margin: 0 10px; /* Adjust horizontal spacing */
-      padding: 10px 20px; /* Adjust padding */
-      font-size: 16px; /* Adjust font size */
-    }
-
-    /* Footer text */
-    .footer-text {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-size: 14px; /* Adjust font size */
-      color: #555;
-      padding: 10px 0; /* Adjust padding */
-      background-color: #f0f0f0; /* Background color */
-      font-weight: bold;
-      color: transparent;
-      background-image: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
-      background-size: 100%;
-      background-clip: text;
-      -webkit-background-clip: text;
-      animation: rainbow 5s linear infinite;
-    }
-
-    @keyframes rainbow {
-      0% {
-        background-position: 0 50%;
-      }
-      100% {
-        background-position: 100% 50%;
-      }
-    }
-  </style>
+        @keyframes border-animation {
+            0% {
+                border-color: #ff6b6b;
+            }
+            20% {
+                border-color: #ff9f43;
+            }
+            40% {
+                border-color: #feca57;
+            }
+            60% {
+                border-color: #48dbfb;
+            }
+            80% {
+                border-color: #1dd1a1;
+            }
+            100% {
+                border-color: #f368e0;
+            }
+        }
+        .logo {
+            position: absolute;
+            top: 190px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px; /* Adjust the width as needed */
+        }
+    </style>
 </head>
 <body>
+    <div id="login-form">
+        <h1>Enter Password</h1>
+        <input type="password" id="password" placeholder="Password">
+        <button id="submit-btn">Submit</button>
+    </div>
+    <div class="video-container">
+        <img src="https://s12.gifyu.com/images/SYa8u.png" alt="Logo" class="logo">
+        <video id="my-video" controls width="640" height="264" src="https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8"></video>
+        <div class="quality-controls">
+            <label for="quality-options">Select Quality:</label>
+            <select id="quality-options">
+                <!-- Options will be dynamically populated -->
+            </select>
+        </div>
+        <button class="support-button" onclick="openSupport()">Support</button>
+    </div>
+    <footer><span class="footer-text">Made By <a href="" style="color: inherit; text-decoration: none;">Talha</a></span></footer>
 
-<div class="container">
+    <script>
+        const PASSWORD = "Talha"; // Set your password here
+        const loginForm = document.getElementById('login-form');
+        const passwordInput = document.getElementById('password');
+        const submitBtn = document.getElementById('submit-btn');
+        const videoContainer = document.querySelector('.video-container');
+        const videoPlayer = document.getElementById('my-video');
 
-  <!-- Logo overlay -->
-  <div class="logo-overlay">
-    <img src="https://s10.gifyu.com/images/SrMU9.png" alt="Logo">
-  </div>
+        submitBtn.addEventListener('click', () => {
+            if (passwordInput.value === PASSWORD) {
+                loginForm.style.display = 'none';
+                videoPlayer.style.display = 'block';
+                qualityControls.style.display = 'block';
 
-  <!-- Video player -->
-  <div class="video-container">
-    <video id="myVideo" controls autoplay poster="https://s10.gifyu.com/images/SYGkR.jpg">
-      <!-- Replace with a fallback video source if WebTorrent is not supported -->
-      <source src="https://dai.google.com/ssai/event/MU1Tz6gxSAuGNMvGmokn4A/master.m3u8" type="application/x-mpegURL">
-      Your browser does not support the video tag or HLS streams.
-    </video>
-  </div>
+                videoPlayer.load();
+                videoPlayer.play();
+            } else {
+                alert('Incorrect password. Please try again.');
+            }
+        });
 
-  <!-- Ticker text -->
-  <div class="ticker-container">
-    abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij abcdefghij
-  </div>
-
-  <!-- Colorful light animation -->
-  <div class="colorful-light"></div>
-
-  <!-- Buttons -->
-  <div class="buttons-container">
-    <button onclick="redirectTo('https://example.com/page1')">Talha1</button>
-    <button onclick="redirectTo('https://example.com/page2')">Talha2</button>
-  </div>
-
-  <!-- Footer text -->
-  <div class="footer-text">
-    Made By Talha
-  </div>
-
-  <!-- Visit counter from Free-Counters.org -->
-  <div style="position: absolute; top: 90%; left: 50%; transform: translateX(-50%);">
-    <a href='https://www.free-counters.org/'>https://www.Free-Counters.org</a>
-    <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=1bbd72dc44b61eeb230124d75f064506e625a5d6'></script>
-    <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1194402/t/1"></script>
-  </div>
-
-  <!-- Password login form -->
-  <div id="password-form" style="position: absolute; top: 30%; left: 50%; transform: translateX(-50%);">
-    <form id="login-form" onsubmit="authenticate(event)">
-      <input type="password" id="password-input" placeholder="Enter password" required>
-      <button type="submit">Login</button>
-    </form>
-  </div>
-
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webtorrent/0.107.0/webtorrent.min.js"></script>
-<script>
-  // Initialize WebTorrent client
-  var client = new WebTorrent();
-
-  // Add your torrent file or magnet URI here
-  var magnetURI = 'magnet:?xt=urn:btih:YOUR_TORRENT_HASH';
-
-  // Start streaming the torrent
-  client.add(magnetURI, function (torrent) {
-    // Select the appropriate file from the torrent
-    var file = torrent.files.find(function (file) {
-      return file.name.endsWith('.mp4'); // Adjust the file type as needed
-    });
-
-    // Stream the file into the video element
-    file.createReadStream().pipe(document.getElementById('myVideo'));
-  });
-
-  // Function to authenticate
-  function authenticate(event) {
-    event.preventDefault();
-    var password = document.getElementById('password-input').value;
-
-    // Compare entered password with the correct password
-    if (password === 'Talha') {
-      // Password correct, proceed with displaying video or other action
-      document.getElementById('password-form').style.display = 'none'; // Hide password form
-      document.querySelector('.video-container').style.display = 'block'; // Show video container
-      document.querySelector('.ticker-container').style.display = 'block'; // Show ticker container
-      document.querySelector('.buttons-container').style.display = 'block'; // Show buttons
-      document.querySelector('.colorful-light').style.display = 'block'; // Show colorful light
-      document.querySelector('.logo-overlay').style.display = 'block'; // Show logo overlay
-    } else {
-      // Incorrect password handling (e.g., show error message)
-      alert('Incorrect password. Please try again.');
-    }
-  }
-
-  // Function to redirect to a URL
-  function redirectTo(url) {
-    window.location.href = url;
-  }
-</script>
-
+        function openSupport() {
+            window.open("https://t.me/talhasmovie_request_bot", "_blank");
+        }
+    </script>
 </body>
 </html>
