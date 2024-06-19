@@ -56,6 +56,18 @@
             position: relative;
             width: 90%;
             max-width: 800px;
+        .ticker-container {
+            position: absolute;
+            bottom: -70px;
+            width: 100%;
+            overflow: hidden;
+            display: none; /* Initially hide ticker */
+        }
+        .ticker-text {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%; /* Start off-screen */
+            animation: ticker-animation 60s linear infinite; /* Adjust animation duration as needed */
         }
         .quality-controls {
             position: absolute;
@@ -157,6 +169,13 @@
             </select>
         </div>
         <button class="support-button" onclick="openSupport()">Support</button>
+        <button class="support-button" onclick="openSupport()">Support</button>
+        <button id="cricket-btn" onclick="redirectToCricket()">Cricket World Cup Live</button>
+        <div class="ticker-container">
+            <div class="ticker-text">
+                Click Inside The Player Play Button To Play Video And Wait 30 Second For Buffer Loading. If Video Not Play Refresh The Page And Try Again An Any Other Issues Click "Support" Button And Submit Your Report, Thanks!             **[Note* By accessing our streaming site you acknowledge that we aggregate freely available streaming links we are not responsible any copyright concerns, please contact us at click "support" button]**
+            </div>
+        </div>
     </div>
     <footer><span class="footer-text">Made By <a href="" style="color: inherit; text-decoration: none;">Talha</a></span></footer>
 
