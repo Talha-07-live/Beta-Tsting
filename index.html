@@ -234,11 +234,11 @@
             if (passwordInput.value === PASSWORD) {
                 loginForm.style.display = 'none';
                 videoPlayer.style.display = 'block';
+                tickerContainer.style.display = 'block'; // Show ticker after successful login
                 qualityControls.style.display = 'block';
 
                 videoPlayer.load();
                 videoPlayer.play();
-                tickerContainer.style.display = 'block'; // Show ticker after successful login
             } else {
                 alert('Incorrect password. Please try again.');
             }
