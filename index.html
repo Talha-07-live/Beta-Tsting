@@ -87,17 +87,17 @@
 
             if (Hls.isSupported()) {
                 const hls = new Hls({
-                    maxBufferLength: 30,
-                    maxMaxBufferLength: 120,
-                    maxBufferSize: 50 * 1000 * 1000, // 50MB buffer size
-                    maxBufferHole: 1,
+                    maxBufferLength: 60,
+                    maxMaxBufferLength: 240,
+                    maxBufferSize: 500 * 1000 * 1000, // 50MB buffer size
+                    maxBufferHole: 5,
                     lowBufferWatchdogPeriod: 0.5,
                     highBufferWatchdogPeriod: 2,
                     capLevelToPlayerSize: true,
-                    startLevel: -1,
+                    startLevel: -5,
                     autoStartLoad: true,
-                    liveSyncDurationCount: 3,
-                    liveMaxLatencyDurationCount: 10,
+                    liveSyncDurationCount: 6,
+                    liveMaxLatencyDurationCount: 20,
                 });
 
                 hls.loadSource('https://cdn1.flexsportx.com/live/zone-11/chunks.m3u8');
