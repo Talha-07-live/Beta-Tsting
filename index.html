@@ -209,11 +209,16 @@
             padding: -5px 0;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
         }
-        .server-button {
+        .server-buttons {
             position: absolute;
-            top: -370px;
+            top: -370px; /* Adjust this value to move the buttons up or down */
             left: 50%;
             transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            display: none; /* Initially hide server buttons */
+        }
+        .server-button {
             background-color: #ff6b6b;
             color: white;
             border: none;
@@ -239,20 +244,19 @@
     <div class="video-container">
         <img src="https://s10.gifyu.com/images/SrMU9.png" alt="Logo" class="logo">
         <video id="my-video" controls width="640" height="264" src="https://dzkyvlfyge.erbvr.com/PeaceTvBangla/tracks-v3a1/mono.m3u8"></video>
-        <iframe id="my-iframe" src="https://anym3u8player.com/p2p-player-generator-jwplayer/mplay.php?data=nCLCQmLtFml/wHRSNI+EmeWTWnnEpQdcxQMX0EFrPUzJCnYSpNG4hdKQm2A90WpMdVt4SbQvRfCQg3qG09sqnIFBCGmX89mTpUO9i1VGpbfi/ovzovKFPHWUAiKRoXlRb1qUNioEJjtffHBYEbGdrVZfovVtNQrI6niG1sNwZrxSCnBvaD7Oar0GyXzYDnMylWGgNer63tC72dxzBZR33plvESJ83szJ+QSpbtKwwR+k0UKlv0jwSwtCmIsj3fpm4jqqHTMc9G1Y2tc=" width="100%" height="225px" poster="https://s10.gifyu.com/images/SYGkR.jpg" frameborder="0" allowfullscreen style="display: none;"></iframe>
+        <iframe id="my-iframe" src="https://anym3u8player.com/p2p-player-generator-jwplayer/mplay.php?data=nCLCQmLtFml/wHRSNI+EmeWTWnnEpQdcxQMX0EFrPUzJCnYSpNG4hdKQm2A90WpMdVt4SbQvRfCQg3qG09sqnIFBCGmX89mTpUO9i1VGpbfi/ovzovKFPHWUAiKRoXlRb1qUNioEJjtffHBYEbGdrVZfovVtNQrI6niG1sNwZrxSCnBvaD7Oar0GyXzYDnMylWGgNer63tC72dxzBZR33plvESJ83szJ+QSpbtKwwR+k0UKlv0jwSwtCmIsj3fpm4jqqHTMc9G1Y2tc=" height="225px" poster="https://s10.gifyu.com/images/SYGkR.jpg" frameborder="0" allowfullscreen style="display: none;"></iframe>
         <img src="https://s12.gifyu.com/images/SrMx2.png" alt="Logo Top Right" class="logo-top-right" id="logo-top-right">
-        <!-- Removed the quality-controls section -->
         <button class="support-button" onclick="openSupport()">Support</button>
-        <button id="cricket-btn" onclick="redirectToCricket()">UEFA EURO Live</button>
-        <button id="copa-btn" onclick="redirectToCopa()">Copa America Live</button>
         <div class="ticker-container">
             <div class="ticker-text">
                 Click Inside The Player Play Button To Play Video And Wait 30 Second For Buffer Loading. If Video Not Play Refresh The Page And Try Again An Any Other Issues Click "Support" Button And Submit Your Report, Thanks!             **[Note* By accessing our streaming site you acknowledge that we aggregate freely available streaming links we are not responsible any copyright concerns, please contact us at click "support" button]**
             </div>
         </div>
-        <button class="server-button" onclick="changeServer('server1')">Server 1</button>
-        <button class="server-button" onclick="changeServer('server2')">Server 2</button>
-        <button class="server-button" onclick="changeServer('server3')">Server 3</button>
+        <div class="server-buttons">
+            <button class="server-button" id="server1-btn" onclick="changeServer('server1')">Server 1</button>
+            <button class="server-button" id="server2-btn" onclick="changeServer('server2')">Server 2</button>
+            <button class="server-button" id="server3-btn" onclick="changeServer('server3')">Server 3</button>
+        </div>
     </div>
     <footer><span class="footer-text">Made By <a href="" style="color: inherit; text-decoration: none;">Talha</a></span></footer>
     <div class="visitor-counter">
@@ -270,7 +274,7 @@
         const iframePlayer = document.getElementById('my-iframe');
         const tickerContainer = document.querySelector('.ticker-container'); // Select the ticker container
         const logoTopRight = document.getElementById('logo-top-right');
-        
+        const serverButtonsContainer = document.querySelector('.server-buttons'); // Select the server buttons container
         
         submitBtn.addEventListener('click', () => {
             if (passwordInput.value === PASSWORD) {
@@ -281,7 +285,7 @@
                 };
                 tickerContainer.style.display = 'block'; // Show ticker after successful login
                 logoTopRight.style.display = 'block'; // Show the top-right logo after successful login
-                
+                serverButtonsContainer.style.display = 'flex'; // Show server buttons after successful login
             } else {
                 alert('Incorrect password. Please try again.');
             }
@@ -309,5 +313,4 @@
         }
     </script>
 </body>
-    </html>
-            
+</html>
