@@ -87,22 +87,20 @@
 
             if (Hls.isSupported()) {
                 const hls = new Hls({
-                    maxBufferLength: 60,
-                    maxMaxBufferLength: 240,
-                    maxBufferSize: 500 * 1000 * 1000, // 50MB buffer size
-                    maxBufferHole: 5,
+                    maxBufferLength: 120,
+                    maxMaxBufferLength: 300,
+                    maxBufferSize: 120 * 1000 * 1000,
+                    maxBufferHole: 2,
                     lowBufferWatchdogPeriod: 0.5,
-                    highBufferWatchdogPeriod: 2,
+                    highBufferWatchdogPeriod: 3,
                     capLevelToPlayerSize: true,
-                    startLevel: -5,
+                    startLevel: -1,
                     autoStartLoad: true,
-                    liveSyncDurationCount: 6,
-                    liveMaxLatencyDurationCount: 20,
+                    liveSyncDurationCount: 3,
+                    liveMaxLatencyDurationCount: 10,
                 });
-
                 hls.loadSource('https://cdn1.flexsportx.com/live/zone-11/chunks.m3u8');
                 hls.attachMedia(video);
-
                 hls.on(Hls.Events.MANIFEST_PARSED, () => {
                     video.play();
                 });
@@ -110,27 +108,26 @@
                 hls.on(Hls.Events.BUFFER_STALLED, showBuffering);
                 hls.on(Hls.Events.BUFFER_APPENDED, hideBuffering);
                 hls.on(Hls.Events.BUFFER_EOS, hideBuffering);
-
                 hls.on(Hls.Events.ERROR, (event, data) => {
                     if (data.fatal) {
                         switch (data.type) {
                             case Hls.ErrorTypes.NETWORK_ERROR:
                                 console.error("Fatal network error encountered, trying to recover...");
                                 retryCount++;
-                                showError(3 * retryCount);
+                                showError(5 * retryCount);
                                 setTimeout(() => {
                                     hls.startLoad();
                                     hideError();
-                                }, 3000 * retryCount);
+                                }, 5000 * retryCount);
                                 break;
                             case Hls.ErrorTypes.MEDIA_ERROR:
                                 console.error("Fatal media error encountered, trying to recover...");
                                 retryCount++;
-                                showError(3 * retryCount);
+                                showError(5 * retryCount);
                                 setTimeout(() => {
                                     hls.recoverMediaError();
                                     hideError();
-                                }, 3000 * retryCount);
+                                }, 5000 * retryCount);
                                 break;
                             default:
                                 console.error("Fatal error encountered, cannot recover.");
@@ -150,12 +147,12 @@
                 video.addEventListener('playing', hideBuffering);
                 video.addEventListener('error', () => {
                     retryCount++;
-                    showError(3 * retryCount);
+                    showError(5 * retryCount);
                     setTimeout(() => {
                         video.load();
                         video.play();
                         hideError();
-                    }, 3000 * retryCount);
+                    }, 5000 * retryCount);
                 });
             }
         });
