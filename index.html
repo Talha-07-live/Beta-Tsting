@@ -157,6 +157,9 @@
                         hideError();
                     }, 3000 * retryCount);
                 });
+            } else {
+                console.error('HLS.js is not supported, and the browser does not support HLS natively.');
+                showError();
             }
         });
     </script>
