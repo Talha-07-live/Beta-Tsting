@@ -24,8 +24,11 @@
         }
 
         #video {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
+            height: 100%;
         }
 
         #buffering-message, #error-message {
@@ -87,12 +90,12 @@
 
             if (Hls.isSupported()) {
                 const hls = new Hls({
-                    maxBufferLength: 60,
-                    maxMaxBufferLength: 300,
-                    maxBufferSize: 60 * 1000 * 1000,
-                    maxBufferHole: 2,
-                    lowBufferWatchdogPeriod: 0.5,
-                    highBufferWatchdogPeriod: 3,
+                    maxBufferLength: 10,
+                    maxMaxBufferLength: 30,
+                    maxBufferSize: 30 * 1000 * 1000,
+                    maxBufferHole: 0.5,
+                    lowBufferWatchdogPeriod: 0.2,
+                    highBufferWatchdogPeriod: 1,
                     capLevelToPlayerSize: true,
                     startLevel: -1,
                     autoStartLoad: true,
@@ -114,20 +117,20 @@
                             case Hls.ErrorTypes.NETWORK_ERROR:
                                 console.error("Fatal network error encountered, trying to recover...");
                                 retryCount++;
-                                showError(5 * retryCount);
+                                showError(3 * retryCount);
                                 setTimeout(() => {
                                     hls.startLoad();
                                     hideError();
-                                }, 5000 * retryCount);
+                                }, 3000 * retryCount);
                                 break;
                             case Hls.ErrorTypes.MEDIA_ERROR:
                                 console.error("Fatal media error encountered, trying to recover...");
                                 retryCount++;
-                                showError(5 * retryCount);
+                                showError(3 * retryCount);
                                 setTimeout(() => {
                                     hls.recoverMediaError();
                                     hideError();
-                                }, 5000 * retryCount);
+                                }, 3000 * retryCount);
                                 break;
                             default:
                                 console.error("Fatal error encountered, cannot recover.");
@@ -147,12 +150,12 @@
                 video.addEventListener('playing', hideBuffering);
                 video.addEventListener('error', () => {
                     retryCount++;
-                    showError(5 * retryCount);
+                    showError(3 * retryCount);
                     setTimeout(() => {
                         video.load();
                         video.play();
                         hideError();
-                    }, 5000 * retryCount);
+                    }, 3000 * retryCount);
                 });
             }
         });
