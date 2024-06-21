@@ -1,263 +1,161 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talha-07-Live</title>
+    <title>M3U8 Player</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
             margin: 0;
-            flex-direction: column;
+            background-color: #000;
         }
-        #login-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        #my-video {
-            width: 100%;
-            max-width: 1000px;
-            border: 5px solid transparent;
-            border-radius: 10px;
-            animation: border-animation 5s infinite;
-            background-clip: border-box;
-            display: none; /* Initially hide HLS video player */
-        }
-        #my-iframe {
-            position: absolute;
-            top: -200px;
-            left: -14px;
-            width: 105%;
-            max-width: 1000px;
-            border: 5px solid transparent;
-            border-radius: 10px;
-            animation: border-animation 5s infinite;
-            background-clip: border-box;
-            display: none; /* Initially hide iframe */
-            cursor: pointer; /* Add cursor pointer to indicate it's clickable */
-        }
-        #password {
-            padding: 10px;
-            font-size: 16px;
-        }
-        #submit-btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        #submit-btn:hover {
-            background-color: #0056b3;
-        }
-        .video-container {
+
+        #player-container {
             position: relative;
-            width: 90%;
-            max-width: 800px;
-            display: flex;
-            justify-content: center;
-            margin-top: 20px; /* Added margin to separate from login form */
-            position: relative; /* Added relative positioning */
-        }
-        .ticker-container {
-            position: absolute;
-            bottom: -70px;
-            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
             overflow: hidden;
-            display: none; /* Initially hide ticker */
+            max-width: 100%;
+            background-color: #000;
         }
-        .ticker-text {
-            display: inline-block;
-            white-space: nowrap;
-            padding-left: 100%; /* Start off-screen */
-            animation: ticker-animation 60s linear infinite; /* Adjust animation duration as needed */
+
+        #video {
+            width: 100%;
+            height: auto;
         }
-        @keyframes ticker-animation {
-            0% {
-                transform: translateX(2%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
-        }
-        .support-button {
+
+        #buffering-message, #error-message {
             position: absolute;
-            top: -250px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            background-color: #28a745;
+            transform: translate(-50%, -50%);
             color: white;
-            border: none;
+            background-color: rgba(0, 0, 0, 0.5);
             padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            display: none;
         }
-        .support-button:hover {
-            background-color: #28a745;
+
+        #error-message {
+            background-color: rgba(255, 0, 0, 0.5);
         }
-        #cricket-btn {
-            position: absolute;
-            top: -300px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 10px;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-        #cricket-btn:hover {
-            background-color: #d9534f;
-        }
-        footer {
-            margin-top: 90px;
-            font-size: 14px;
-            color: #555;
-            text-align: center;
-        }
-        .footer-text {
-            font-size: 16px;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff6b6b, #ff9f43, #feca57, #48dbfb, #1dd1a1, #f368e0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient-animation 5s infinite;
-            background-size: 300%;
-        }
-        @keyframes gradient-animation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        @keyframes border-animation {
-            0% {
-                border-color: #ff6b6b;
-            }
-            20% {
-                border-color: #ff9f43;
-            }
-            40% {
-                border-color: #feca57;
-            }
-            60% {
-                border-color: #48dbfb;
-            }
-            80% {
-                border-color: #1dd1a1;
-            }
-            100% {
-                border-color: #f368e0;
-            }
-        }
-        .logo {
-            position: absolute;
-            top: 140px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px; /* Adjust the width as needed */
-        }
-        .logo-top-right {
-            position: absolute;
-            top: -190px;
-            right: -2px;
-            width: 70px; /* Adjust the size of the top-right logo */
-            display: none; /* Initially hide logo */
-        }
-        .visitor-counter {
-            position: absolute;
-            bottom: -90px;
-            width: -5%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            background-color: rgba(240, 240, 240, 0.8); /* Transparent background */
-            padding: -5px 0;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+
+        #retry-message {
+            color: yellow;
         }
     </style>
 </head>
 <body>
-    <div id="login-form">
-        <h1>Enter Password</h1>
-        <input type="password" id="password" placeholder="Password">
-        <button id="submit-btn">Submit</button>
-        <button id="cricket-btn" onclick="redirectToCricket()">Football UEFA EURO Live</button>
+    <div id="player-container">
+        <video id="video" controls poster="https://s10.gifyu.com/images/SYGkR.jpg"></video>
+        <div id="buffering-message">Buffering...</div>
+        <div id="error-message">An error occurred. Please try again later.<div id="retry-message"></div></div>
     </div>
-    <div class="video-container">
-        <img src="https://s10.gifyu.com/images/SrMU9.png" alt="Logo" class="logo">
-        <video id="my-video" controls width="640" height="264" src="https://dzkyvlfyge.erbvr.com/PeaceTvBangla/tracks-v3a1/mono.m3u8"></video>
-        <iframe id="my-iframe" src="https://hdstreamz.vip/tsportshd/tsports.php?id=01" width="100%" height="225px" poster="https://s10.gifyu.com/images/SYGkR.jpg" frameborder="0" allowfullscreen style="display: none;"></iframe>
-        <img src="https://s12.gifyu.com/images/SrMx2.png" alt="Logo Top Right" class="logo-top-right" id="logo-top-right">
-        <!-- Removed the quality-controls section -->
-        <button class="support-button" onclick="openSupport()">Support</button>
-        <button id="cricket-btn" onclick="redirectToCricket()">Football UEFA EURO Live</button>
-        <div class="ticker-container">
-            <div class="ticker-text">
-                Click Inside The Player Play Button To Play Video And Wait 30 Second For Buffer Loading. If Video Not Play Refresh The Page And Try Again An Any Other Issues Click "Support" Button And Submit Your Report, Thanks!             **[Note* By accessing our streaming site you acknowledge that we aggregate freely available streaming links we are not responsible any copyright concerns, please contact us at click "support" button]**
-            </div>
-        </div>
-    </div>
-    <footer><span class="footer-text">Made By <a href="" style="color: inherit; text-decoration: none;">Talha</a></span></footer>
-    <div class="visitor-counter">
-        <a href='https://www.free-counters.org/' style="text-decoration: none; color: inherit;">Talha</a>
-        <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=be71ed1b8e490aace689fd6f1b06c8f6894b8a87'></script>
-        <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1193066/t/0"></script>
-    </div>
-    
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
-        const PASSWORD = "Talha"; // Set your password here
-        const loginForm = document.getElementById('login-form');
-        const passwordInput = document.getElementById('password');
-        const submitBtn = document.getElementById('submit-btn');
-        const videoPlayer = document.getElementById('my-video');
-        const iframePlayer = document.getElementById('my-iframe');
-        const tickerContainer = document.querySelector('.ticker-container'); // Select the ticker container
-        const logoTopRight = document.getElementById('logo-top-right');
-        
-        
-        submitBtn.addEventListener('click', () => {
-            if (passwordInput.value === PASSWORD) {
-                loginForm.style.display = 'none';
-                videoPlayer.style.display = 'none';
-                iframePlayer.style.display = 'block';
-                iframePlayer.onclick = () => {
-                };
-                tickerContainer.style.display = 'block'; // Show ticker after successful login
-                logoTopRight.style.display = 'block'; // Show the top-right logo after successful login
-                
-            } else {
-                alert('Incorrect password. Please try again.');
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('video');
+            const bufferingMessage = document.getElementById('buffering-message');
+            const errorMessage = document.getElementById('error-message');
+            const retryMessage = document.getElementById('retry-message');
+            let retryCount = 0;
+
+            function showBuffering() {
+                bufferingMessage.style.display = 'block';
+            }
+
+            function hideBuffering() {
+                bufferingMessage.style.display = 'none';
+            }
+
+            function showError(retry) {
+                errorMessage.style.display = 'block';
+                video.style.display = 'none';
+                if (retry) {
+                    retryMessage.textContent = `Retrying in ${retry} seconds...`;
+                }
+            }
+
+            function hideError() {
+                errorMessage.style.display = 'none';
+                video.style.display = 'block';
+            }
+
+            if (Hls.isSupported()) {
+                const hls = new Hls({
+                    maxBufferLength: 60,
+                    maxMaxBufferLength: 300,
+                    maxBufferSize: 60 * 1000 * 1000,
+                    maxBufferHole: 2,
+                    lowBufferWatchdogPeriod: 0.5,
+                    highBufferWatchdogPeriod: 3,
+                    capLevelToPlayerSize: true,
+                    startLevel: -1,
+                    autoStartLoad: true,
+                    liveSyncDurationCount: 3,
+                    liveMaxLatencyDurationCount: 10,
+                });
+                hls.loadSource('https://cdn1.flexsportx.com/live/zone-11/chunks.m3u8');
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    video.play();
+                });
+
+                hls.on(Hls.Events.BUFFER_STALLED, showBuffering);
+                hls.on(Hls.Events.BUFFER_APPENDED, hideBuffering);
+                hls.on(Hls.Events.BUFFER_EOS, hideBuffering);
+                hls.on(Hls.Events.ERROR, (event, data) => {
+                    if (data.fatal) {
+                        switch (data.type) {
+                            case Hls.ErrorTypes.NETWORK_ERROR:
+                                console.error("Fatal network error encountered, trying to recover...");
+                                retryCount++;
+                                showError(5 * retryCount);
+                                setTimeout(() => {
+                                    hls.startLoad();
+                                    hideError();
+                                }, 5000 * retryCount);
+                                break;
+                            case Hls.ErrorTypes.MEDIA_ERROR:
+                                console.error("Fatal media error encountered, trying to recover...");
+                                retryCount++;
+                                showError(5 * retryCount);
+                                setTimeout(() => {
+                                    hls.recoverMediaError();
+                                    hideError();
+                                }, 5000 * retryCount);
+                                break;
+                            default:
+                                console.error("Fatal error encountered, cannot recover.");
+                                showError();
+                                hls.destroy();
+                                break;
+                        }
+                    }
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = 'https://cdn1.flexsportx.com/live/zone-11/chunks.m3u8';
+                video.addEventListener('loadedmetadata', () => {
+                    video.play();
+                });
+
+                video.addEventListener('waiting', showBuffering);
+                video.addEventListener('playing', hideBuffering);
+                video.addEventListener('error', () => {
+                    retryCount++;
+                    showError(5 * retryCount);
+                    setTimeout(() => {
+                        video.load();
+                        video.play();
+                        hideError();
+                    }, 5000 * retryCount);
+                });
             }
         });
-
-        function openSupport() {
-            window.open("https://t.me/talhasmovie_request_bot", "_blank");
-        }
-
-        function redirectToCricket() {
-            window.location.href = "https://photospace.life/CW4ZJG";
-        }
     </script>
 </body>
 </html>
