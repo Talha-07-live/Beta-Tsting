@@ -109,7 +109,7 @@
         }
         #cricket-btn {
             position: absolute;
-            top: -300px;
+            top: -350px; /* Adjust the top value as needed */
             left: 50%;
             transform: translateX(-50%);
             background-color: #ff6b6b;
@@ -121,9 +121,12 @@
             border-radius: 4px;
             transition: background-color 0.3s ease;
         }
+        #cricket-btn:hover {
+            background-color: #d9534f;
+        }
         #copa-btn {
             position: absolute;
-            top: -340px;
+            top: -310px; /* Adjust the top value as needed */
             left: 50%;
             transform: translateX(-50%);
             background-color: #ff6b6b;
@@ -139,7 +142,7 @@
             background-color: #d9534f;
         }
         footer {
-            margin-top: 90px;
+            margin-top: 140px;
             font-size: 14px;
             color: #555;
             text-align: center;
@@ -186,7 +189,7 @@
         }
         .logo {
             position: absolute;
-            top: 140px;
+            top: 180px;
             left: 50%;
             transform: translateX(-50%);
             width: 200px; /* Adjust the width as needed */
@@ -211,7 +214,7 @@
         }
         .server-buttons {
             position: absolute;
-            top: -370px; /* Adjust this value to move the buttons up or down */
+            top: 120px; /* Adjust this value to move the buttons up or down */
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -264,7 +267,6 @@
         <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=be71ed1b8e490aace689fd6f1b06c8f6894b8a87'></script>
         <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1193066/t/0"></script>
     </div>
-    
     <script>
         const PASSWORD = "Talha"; // Set your password here
         const loginForm = document.getElementById('login-form');
@@ -275,7 +277,7 @@
         const tickerContainer = document.querySelector('.ticker-container'); // Select the ticker container
         const logoTopRight = document.getElementById('logo-top-right');
         const serverButtonsContainer = document.querySelector('.server-buttons'); // Select the server buttons container
-        
+
         submitBtn.addEventListener('click', () => {
             if (passwordInput.value === PASSWORD) {
                 loginForm.style.display = 'none';
