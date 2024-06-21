@@ -87,14 +87,14 @@
 
             if (Hls.isSupported()) {
                 const hls = new Hls({
-                    maxBufferLength: 300,
+                    maxBufferLength: 120,
                     maxMaxBufferLength: 300,
-                    maxBufferSize: 300 * 1000 * 1000,
-                    maxBufferHole: 500,
+                    maxBufferSize: 120 * 1000 * 1000,
+                    maxBufferHole: 100,
                     lowBufferWatchdogPeriod: 0.5,
                     highBufferWatchdogPeriod: 3,
                     capLevelToPlayerSize: true,
-                    startLevel: -1,
+                    startLevel: -5,
                     autoStartLoad: true,
                     liveSyncDurationCount: 3,
                     liveMaxLatencyDurationCount: 10,
