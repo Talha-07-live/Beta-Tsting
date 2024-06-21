@@ -92,7 +92,7 @@
         }
         .support-button {
             position: absolute;
-            top: -320px;
+            top: -250px;
             left: 50%;
             transform: translateX(-50%);
             background-color: #28a745;
@@ -109,16 +109,12 @@
         }
         #cricket-btn {
             position: absolute;
-            top: -290px; /* Adjust the top value as needed */
-            left: 90px;
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 10px;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
+            top: -300px; /* Adjust this value to move the buttons up or down */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            display: none; /* Initially hide server buttons */
         }
         #cricket-btn:hover {
             background-color: #d9534f;
