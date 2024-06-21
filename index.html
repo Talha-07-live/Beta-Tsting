@@ -61,6 +61,7 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM fully loaded and parsed");
             const video = document.getElementById('video');
             const bufferingMessage = document.getElementById('buffering-message');
             const errorMessage = document.getElementById('error-message');
@@ -68,14 +69,17 @@
             let retryCount = 0;
 
             function showBuffering() {
+                console.log("Showing buffering message");
                 bufferingMessage.style.display = 'block';
             }
 
             function hideBuffering() {
+                console.log("Hiding buffering message");
                 bufferingMessage.style.display = 'none';
             }
 
             function showError(retry) {
+                console.log("Showing error message");
                 errorMessage.style.display = 'block';
                 video.style.display = 'none';
                 if (retry) {
@@ -84,11 +88,13 @@
             }
 
             function hideError() {
+                console.log("Hiding error message");
                 errorMessage.style.display = 'none';
                 video.style.display = 'block';
             }
 
             if (Hls.isSupported()) {
+                console.log("HLS.js is supported");
                 const hls = new Hls({
                     maxBufferLength: 10,
                     maxMaxBufferLength: 30,
@@ -105,13 +111,24 @@
                 hls.loadSource('https://cdn1.flexsportx.com/live/zone-11/chunks.m3u8');
                 hls.attachMedia(video);
                 hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    console.log("Manifest parsed successfully");
                     video.play();
                 });
 
-                hls.on(Hls.Events.BUFFER_STALLED, showBuffering);
-                hls.on(Hls.Events.BUFFER_APPENDED, hideBuffering);
-                hls.on(Hls.Events.BUFFER_EOS, hideBuffering);
+                hls.on(Hls.Events.BUFFER_STALLED, () => {
+                    console.log("Buffer stalled");
+                    showBuffering();
+                });
+                hls.on(Hls.Events.BUFFER_APPENDED, () => {
+                    console.log("Buffer appended");
+                    hideBuffering();
+                });
+                hls.on(Hls.Events.BUFFER_EOS, () => {
+                    console.log("Buffer end of stream");
+                    hideBuffering();
+                });
                 hls.on(Hls.Events.ERROR, (event, data) => {
+                    console.error(`HLS.js error: ${data.type}`, data);
                     if (data.fatal) {
                         switch (data.type) {
                             case Hls.ErrorTypes.NETWORK_ERROR:
@@ -141,14 +158,23 @@
                     }
                 });
             } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                console.log("Native HLS support detected");
                 video.src = 'https://cdn1.flexsportx.com/live/zone-11/chunks.m3u8';
                 video.addEventListener('loadedmetadata', () => {
+                    console.log("Metadata loaded, starting video playback");
                     video.play();
                 });
 
-                video.addEventListener('waiting', showBuffering);
-                video.addEventListener('playing', hideBuffering);
-                video.addEventListener('error', () => {
+                video.addEventListener('waiting', () => {
+                    console.log("Video waiting (buffering)");
+                    showBuffering();
+                });
+                video.addEventListener('playing', () => {
+                    console.log("Video playing");
+                    hideBuffering();
+                });
+                video.addEventListener('error', (e) => {
+                    console.error("Video error", e);
                     retryCount++;
                     showError(3 * retryCount);
                     setTimeout(() => {
