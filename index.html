@@ -1,37 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HLS Player</title>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <meta charset="utf-8">
+  <title>HLS Demo</title>
+  <link rel="stylesheet" href="https://cdn.plyr.io/1.8.2/plyr.css">
+  <style>
+    body {
+      max-width: 1024px;
+    }
+  </style>
 </head>
 <body>
-    <video id="video" controls width="600" height="400"></video>
-    <script>
-        function loadVideo() {
-            const video = document.getElementById('video');
-            const videoSrc = 'https://hdstreamz.vip/sports/mu202.php?e=.m3u8';
-            if (Hls.isSupported()) {
-                const hls = new Hls({
-                    xhrSetup: function (xhr, url) {
-                        xhr.setRequestHeader('Referer', 'https://your-authorized-referer.com');
-                        xhr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
-                    }
-                });
-                hls.loadSource(videoSrc);
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                    video.play();
-                });
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = videoSrc;
-                video.addEventListener('canplay', function () {
-                    video.play();
-                });
-            }
-        }
-        loadVideo();
-    </script>
+  <video preload="none" id="player" autoplay controls crossorigin></video>
+  <script src="https://cdn.plyr.io/1.8.2/plyr.js"></script>
+  <script src="https://cdn.jsdelivr.net/hls.js/latest/hls.js"></script>
+  <script>
+    (function () {
+      var video = document.querySelector('#player');
+
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource('https://mm5-97.tinyuri.org/live/m4-1080p.m3u8');
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED,function() {
+          video.play();
+        });
+      }
+
+      plyr.setup(video);
+    })();
+  </script>
 </body>
 </html>
