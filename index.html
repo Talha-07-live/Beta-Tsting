@@ -11,7 +11,7 @@
   </style>
 </head>
 <body>
-  <video preload="none" id="player" autoplay controls crossorigin></video>
+  <video preload="none" id="player" controls crossorigin></video>
   <script src="https://cdn.plyr.io/1.8.2/plyr.js"></script>
   <script src="https://cdn.jsdelivr.net/hls.js/latest/hls.js"></script>
   <script>
@@ -23,7 +23,7 @@
         hls.loadSource('https://live.teleradiocom.tj/5/3m.m3u8');
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED,function() {
-          video.play();
+          // Video will only play when the user clicks the play button
         });
       }
 
