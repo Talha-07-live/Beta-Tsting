@@ -1,46 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plyr Example</title>
-  <!-- Plyr CSS -->
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f0f0f0;
-    }
-    .plyr__video-embed {
-      width: 100%;
-      max-width: 800px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Plyr Video Player</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
 </head>
 <body>
+    <video id="player" playsinline controls>
+        <source src="https://fifabd.xyz/tttttt/play.php?id=1&q=720" type="video/mp4" />
+    </video>
 
-  <div class="plyr__video-embed" id="player">
-    <iframe 
-      src="https://kbsworld-ott.akamaized.net/hls/live/2002341/kbsworld/01.m3u8" 
-      allowfullscreen 
-      allowtransparency 
-      allow="autoplay">
-    </iframe>
-  </div>
-
-  <!-- Plyr JS -->
-  <script src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const player = new Plyr('#player', {
-        controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
-      });
-    });
-  </script>
-
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+    <script>
+        const player = new Plyr('#player', {
+            controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'fullscreen'],
+            settings: ['captions', 'quality', 'speed'],
+            // Additional options can be added here
+        });
+    </script>
 </body>
 </html>
