@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded iFrame</title>
+    <style>
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Set the height you need */
+            overflow: hidden;
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: -220px; /* Adjust based on the part you want to show */
+            left: 0;
+            width: 100%;
+            height: 800px; /* Adjust based on the part you want to show */
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="iframe-container">
+        <iframe src="https://bokulsports.com/livetv/watch/uefa-euro-2024/177" scrolling="no" allowfullscreen></iframe>
+    </div>
+</body>
+</html>
