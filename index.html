@@ -84,8 +84,8 @@
             position: absolute;
             left: 90%;
             transform: translateX(-50%);
-            bottom: 100px; /* Position above the copyright text */
-            font-size: 30px;
+            bottom: 155px;
+            font-size: 25px;
             color: #90D5FF;
             background-color: #16a085;
             border-radius: 50%;
@@ -97,27 +97,43 @@
             background-color: #1abc9c;
             color: #fff;
         }
-        .footer ul {
-            list-style-type: none;
-            padding: 0;
+        .footer .facebook-section {
+            display: inline-flex;
+            align-items: center;
             margin-top: 10px;
+            gap: 10px;
         }
-        .footer ul li {
-            font-size: 16px;
-            margin-bottom: 10px;
+        .footer .facebook-btn {
+            display: inline-flex;
+            align-items: center;
+            font-size: 24px;
+            color: #fff;
+            background-color: #3b5998;
+            border-radius: 50%;
+            padding: 10px;
+            width: 50px;
+            height: 50px;
+            line-height: 30px;
+            text-align: center;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+        }
+        .footer .facebook-btn:hover {
+            background-color: #2d4373;
+            transform: scale(1.1);
+        }
+        .footer .facebook-text {
+            font-size: 18px;
             color: #bdc3c7;
+            margin-left: 10px;
         }
-        .footer ul li i {
-            margin-right: 10px;
-            color: #16a085;
-        }
-        .footer ul li a {
-            color: #bdc3c7;
+        .footer .facebook-link {
             text-decoration: none;
-            transition: color 0.3s ease-in-out;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
-        .footer ul li a:hover {
-            color: #1abc9c;
+        .footer .facebook-link:hover .facebook-text {
+            color: #fff;
         }
     </style>
 </head>
@@ -158,9 +174,12 @@
     <div class="footer">
         <a href="#hero" class="up-arrow"><i class="fas fa-arrow-up"></i></a>
         <p>আসুন, সবাই একসাথে মানবিকতার পরিচয় দেই। 🌱</p>
-        <ul>
-            <li><i class="fas fa-facebook"></i> <a href="https://www.facebook.com/profile.php?id=61564453421912&mibextid=ZbWKwL">Visit Our Facebook Page</a></li>
-        </ul>
+        <a href="https://www.facebook.com/profile.php?id=61564453421912&mibextid=ZbWKwL" class="facebook-link">
+            <div class="facebook-btn">
+                <i class="fab fa-facebook-f"></i>
+            </div>
+            <span class="facebook-text">Visit our Facebook page</span>
+        </a>
         <p class="copyright">&copy; 2024 • Made By ABU TALHA RAJ</p>
     </div>
 
@@ -177,4 +196,4 @@
         });
     </script>
 </body>
-    </html>
+</html>
