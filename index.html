@@ -47,7 +47,7 @@
         function isValidEmbed() {
             const referrer = document.referrer;
             // Add allowed domains here
-            const allowedDomains = ["https://talha-07-live.github.io/Beta-Tsting", "https://talha-07-live.github.io/Beta-Test/"];
+            const allowedDomains = ["https://movies.talha.000.pe/", "https://movies.talha.000.pe/"];
             return allowedDomains.some(domain => referrer.includes(domain));
         }
 
@@ -56,32 +56,52 @@
         } else {
             jwplayer.key = 'EP3tanOyfjurKgiA7KLnzMTekvDl1Wr14XmAOqNBk3eDc3Yyao+866DfCQaHUofh';
 
-            function setupPlayer(videoUrl, audioTracks, drmOptions = null, posterUrl = null) {
-                const playlistItem = {
-                    title: "Talha's Stream - Arena Sports 2",
-                    description: "You're Watching",
-                    image: "https://s11.gifyu.com/images/S1l3T.jpg",
-                    sources: [
-                        {
-                            file: videoUrl,
-                            type: determineSourceType(videoUrl),
-                            label: "1080p",
-                            default: true
-                        }
-                    ],
-                    drm: drmOptions ? {
-                        clearkey: {
-                            keyId: drmOptions.keyId,
-                            key: drmOptions.key
-                        }
-                    } : null,
-                    tracks: audioTracks.map(track => ({
-                        file: track.file,
-                        kind: "audio",
-                        label: track.label,
-                        default: track.default
-                    }))
-                };
+            function setupPlayer(videoUrls, drmOptions = null, posterUrl = null) {
+                const playlistItems = videoUrls.map((url, index) => {
+                    return {
+                        title: `Talha's Stream - Episode ${index + 1}`,
+                        description: "You're Watching - The Night Manager Season 1",
+                        image: "https://s11.gifyu.com/images/S11rD.jpg",
+                        sources: [
+                            {
+                                file: url,
+                                type: determineSourceType(url),
+                                label: "1080p",
+                                default: true
+                            }
+                        ],
+                        audioTracks: [
+                            {
+                                file: "https://api005.backblazeb2.com/file/ssbucket/ec66bc1e-6c34-11ef-a0a7-af229c331923.mkv",
+                                label: "English",
+                                default: true
+                            },
+                            {
+                                file: "https://api005.backblazeb2.com/file/ssbucket/ec66bc1e-6c34-11ef-a0a7-af229c331923.mkv",
+                                label: "Spanish"
+                            }
+                        ],
+                        tracks: [
+                            {
+                                file: "https://example.com/subtitles/english.vtt",
+                                label: "English",
+                                kind: "captions",
+                                default: true
+                            },
+                            {
+                                file: "https://example.com/subtitles/spanish.vtt",
+                                label: "Spanish",
+                                kind: "captions"
+                            }
+                        ],
+                        drm: drmOptions ? {
+                            clearkey: {
+                                keyId: drmOptions.keyId,
+                                key: drmOptions.key
+                            }
+                        } : null
+                    };
+                });
 
                 jwplayer("player").setup({
                     controls: true,
@@ -100,7 +120,7 @@
                         backgroundOpacity: 0,
                         edgeStyle: "raised"
                     },
-                    playlist: [playlistItem],
+                    playlist: playlistItems,
                     advertising: {
                         client: "vast",
                         schedule: [
@@ -153,16 +173,19 @@
             }
 
             setupPlayer(
-                "https://api005.backblazeb2.com/file/ssbucket/ec66bc1e-6c34-11ef-a0a7-af229c331923.mkv",
                 [
-                    { file: "https://api005.backblazeb2.com/file/ssbucket/ec66bc1e-6c34-11ef-a0a7-af229c331923.mkv", label: "English", default: true },
-                    { file: "https://api005.backblazeb2.com/file/ssbucket/ec66bc1e-6c34-11ef-a0a7-af229c331923.mkv", label: "Spanish" }
+                    "https://api005.backblazeb2.com/file/ssbucket/0a031a74-71af-11ef-bfcf-d50bcd41e956.mkv",
+                    "https://api005.backblazeb2.com/file/ssbucket/1524f584-71af-11ef-966b-d50bcd41e956.mkv",
+                    "https://api005.backblazeb2.com/file/ssbucket/283a7fea-71af-11ef-bacb-d50bcd41e956.mkv",
+                    "https://api005.backblazeb2.com/file/ssbucket/3963a49a-71af-11ef-a940-d50bcd41e956.mkv",
+                    "https://api005.backblazeb2.com/file/ssbucket/4490df80-71af-11ef-8c63-d50bcd41e956.mkv",
+                    "https://api005.backblazeb2.com/file/ssbucket/5780e90c-71af-11ef-87af-d50bcd41e956.mkv",
+                    "https://api005.backblazeb2.com/file/ssbucket/65b11000-71af-11ef-8b6f-d50bcd41e956.mkv"
                 ],
                 {
                     keyId: "c18b6aa739be4c0b774605fcfb5d6b68",
                     key: "e41c3a6f7532b2e3a828d9580124c89d"
-                },
-                ""
+                }
             );
         }
     </script>
