@@ -56,7 +56,7 @@
         } else {
             jwplayer.key = 'EP3tanOyfjurKgiA7KLnzMTekvDl1Wr14XmAOqNBk3eDc3Yyao+866DfCQaHUofh';
 
-            function setupPlayer(videoUrl, drmOptions = null, posterUrl = null) {
+            function setupPlayer(videoUrl, audioTracks, drmOptions = null, posterUrl = null) {
                 const playlistItem = {
                     title: "Talha's Stream - Arena Sports 2",
                     description: "You're Watching",
@@ -74,7 +74,13 @@
                             keyId: drmOptions.keyId,
                             key: drmOptions.key
                         }
-                    } : null
+                    } : null,
+                    tracks: audioTracks.map(track => ({
+                        file: track.file,
+                        kind: "audio",
+                        label: track.label,
+                        default: track.default
+                    }))
                 };
 
                 jwplayer("player").setup({
@@ -148,6 +154,10 @@
 
             setupPlayer(
                 "https://api005.backblazeb2.com/file/ssbucket/ec66bc1e-6c34-11ef-a0a7-af229c331923.mkv",
+                [
+                    { file: "https://api005.backblazeb2.com/file/ssbucket/ec66bc1e-6c34-11ef-a0a7-af229c331923.mkv", label: "English", default: true },
+                    { file: "https://api005.backblazeb2.com/file/ssbucket/ec66bc1e-6c34-11ef-a0a7-af229c331923.mkv", label: "Spanish" }
+                ],
                 {
                     keyId: "c18b6aa739be4c0b774605fcfb5d6b68",
                     key: "e41c3a6f7532b2e3a828d9580124c89d"
