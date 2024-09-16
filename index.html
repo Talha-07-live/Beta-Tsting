@@ -1,199 +1,164 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Workers - Flood Relief Donation</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Talha's Player</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://content.jwplatform.com/libraries/KB5zFt7A.js"></script>
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f4;
+        body, html {
             margin: 0;
             padding: 0;
-            color: #2c3e50;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
-        .hero {
-            background-image: url('https://s12.gifyu.com/images/SoI7E.jpg');
-            background-size: cover;
-            background-position: center;
-            padding: 250px 0;
-            text-align: center;
-            color: #fff;
-        }
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 40px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-        }
-        .btn-primary {
-            background-color: #16a085;
-            border-color: #16a085;
-            padding: 10px 20px;
-            font-size: 18px;
-            transition: background-color 0.3s ease-in-out;
-        }
-        .btn-primary:hover {
-            background-color: #1abc9c;
-        }
-        .donation-details {
-            margin-top: 50px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-        .donation-details h3 {
-            color: #16a085;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-        .donation-details ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .donation-details ul li {
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .donation-details ul li i {
-            margin-right: 10px;
-            color: #16a085;
-        }
-        .footer {
-            background: #2c3e50;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-            margin-top: 0px;
-            position: relative;
-        }
-        .footer p {
-            margin: 0;
-            font-size: 16px;
-        }
-        .footer .up-arrow {
+        #player {
             position: absolute;
-            left: 90%;
-            transform: translateX(-50%);
-            bottom: 155px;
-            font-size: 25px;
-            color: #90D5FF;
-            background-color: #16a085;
-            border-radius: 50%;
-            padding: 10px;
-            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease-in-out;
+            width: 100% !important;
+            height: 100% !important;
+            background-color: #000;
         }
-        .footer .up-arrow:hover {
-            background-color: #1abc9c;
-            color: #fff;
+        .jw-icon-rewind,
+        .jw-icon-forward {
+            filter: brightness(0) invert(1); /* Make icons white */
         }
-        .footer .facebook-section {
-            display: inline-flex;
-            align-items: center;
-            margin-top: 10px;
-            gap: 10px;
+        .jw-text-live {
+            color: red;
         }
-        .footer .facebook-btn {
-            display: inline-flex;
-            align-items: center;
-            font-size: 24px;
-            color: #fff;
-            background-color: #3b5998;
-            border-radius: 50%;
-            padding: 10px;
-            width: 50px;
-            height: 50px;
-            line-height: 30px;
-            text-align: center;
-            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+        .jw-button-container {
+            display: flex;
+            justify-content: center; /* Center buttons horizontally */
+            gap: 10px; /* Adjust the gap between buttons */
         }
-        .footer .facebook-btn:hover {
-            background-color: #2d4373;
-            transform: scale(1.1);
-        }
-        .footer .facebook-text {
-            font-size: 18px;
-            color: #bdc3c7;
-            margin-left: 10px;
-        }
-        .footer .facebook-link {
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .footer .facebook-link:hover .facebook-text {
-            color: #fff;
+        .jw-icon-fullscreen,
+        .jw-icon-share,
+        .jw-icon-pip {
+            margin: 0 5px; /* Adjust margin as needed */
         }
     </style>
 </head>
 <body>
-    <div class="hero" id="hero">
-        <h1>Green Workers - Flood Relief Donation</h1>
-        <p>আপনার সাহায্য আমাদের শক্তি, মানুষের জীবন বাঁচাতে এগিয়ে আসুন।</p>
-        <a href="#donate" class="btn btn-primary">ডোনেট করতে ক্লিক করুন</a>
-    </div>
+    <div id="player"></div>
 
-    <div class="container donation-details" id="donate">
-        <h3>ডোনেশন পাঠানোর জন্য:</h3>
-        <p><strong>#অনলাইনে মাধ্যমে ডোনেশন পাঠাতে:</strong></p>
-        <ul>
-            <li><i class="fas fa-mobile-alt"></i> বিকাশ: 01755939565</li>
-            <li><i class="fas fa-mobile-alt"></i> নগদ: 01831633635</li>
-            <li><i class="fas fa-mobile-alt"></i> রকেট: 01537535916</li>
-            <li><i class="fas fa-mobile-alt"></i> উপায়: 01537535916</li>
-        </ul>
-
-        <p><strong>#ব্যাংকের মাধ্যমে ডোনেশন পাঠাতে:</strong></p>
-        <ul>
-            <li><i class="fas fa-university"></i> অগ্রণী ব্যাংক।</li>
-            <li><i class="fas fa-user"></i> অ্যাকাউন্ট নাম: ABU TALHA RAJ</li>
-            <li><i class="fas fa-file-invoice-dollar"></i> অ্যাকাউন্ট নম্বর: 0200022200261</li>
-        </ul>
-
-        <p><strong>#ভিসা কার্ড:</strong></p>
-        <ul>
-            <li><i class="fas fa-credit-card"></i> A/C: 110212100015250</li>
-        </ul>
-
-        <h3>কাপড়-চোপড় ও শুকনা খাবার জমা দেওয়ার ঠিকানা:</h3>
-        <p><i class="fas fa-map-marker-alt"></i> ঘোপ, সেন্ট্রাল রোড, হলুদমিলের সামনে।</p>
-        <p>অথবা, আমাদের সাথে সরাসরি যোগাযোগ করুন উপরে দেওয়া যেকোনো একটি নাম্বারে।</p>
-    </div>
-
-    <div class="footer">
-        <a href="#hero" class="up-arrow"><i class="fas fa-arrow-up"></i></a>
-        <p>আসুন, সবাই একসাথে মানবিকতার পরিচয় দেই। 🌱</p>
-        <a href="https://www.facebook.com/profile.php?id=61564453421912&mibextid=ZbWKwL" class="facebook-link">
-            <div class="facebook-btn">
-                <i class="fab fa-facebook-f"></i>
-            </div>
-            <span class="facebook-text">Visit our Facebook page</span>
-        </a>
-        <p class="copyright">&copy; 2024 • Made By ABU TALHA RAJ</p>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        // Function to validate embedding
+        function isValidEmbed() {
+            const referrer = document.referrer;
+            // Add allowed domains here
+            const allowedDomains = ["https://talha-07-live.github.io/Beta-Tsting/", "https://talha-07-live.github.io/Beta-Test/"];
+            return allowedDomains.some(domain => referrer.includes(domain));
+        }
+
+        if (!isValidEmbed()) {
+            document.body.innerHTML = '<h1>চুরি করা মহাপাপ(By Order Of Talha, The Creator Of This Page)</h1><p></p>';
+        } else {
+            jwplayer.key = 'EP3tanOyfjurKgiA7KLnzMTekvDl1Wr14XmAOqNBk3eDc3Yyao+866DfCQaHUofh';
+
+            function setupPlayer(videoUrls, drmOptions = null, posterUrl = null) {
+                const playlistItems = videoUrls.map((url, index) => {
+                    return {
+                        title: "Talha's Stream - Arena Sports 2",
+                        description: "You're Watching",
+                        image: "https://s11.gifyu.com/images/S1l3T.jpg",
+                        sources: [
+                            {
+                                file: url,
+                                type: determineSourceType(url),
+                                label: "1080p",
+                                default: true
+                            }
+                        ],
+                        drm: drmOptions ? {
+                            clearkey: {
+                                keyId: drmOptions.keyId,
+                                key: drmOptions.key
+                            }
+                        } : null
+                    };
                 });
-            });
-        });
+
+                jwplayer("player").setup({
+                    controls: true,
+                    sharing: true,
+                    displaytitle: true,
+                    autoplay: true,
+                    displaydescription: true,
+                    abouttext: "Video Player By Talha's Stream",
+                    aboutlink: "https://t.me/talhasmovie_request_bot",
+                    skin: {
+                        name: "netflix"
+                    },
+                    captions: {
+                        color: "#FFF",
+                        fontSize: 14,
+                        backgroundOpacity: 0,
+                        edgeStyle: "raised"
+                    },
+                    playlist: playlistItems,
+                    advertising: {
+                        client: "vast",
+                        schedule: [
+                            {
+                                offset: "pre",
+                                tag: ""
+                            }
+                        ]
+                    },
+                    image: posterUrl
+                }).on("ready", function () {
+                    const playerContainer = jwplayer().getContainer();
+                    const buttonContainer = playerContainer.querySelector(".jw-button-container");
+                    const spacer = buttonContainer.querySelector(".jw-spacer");
+                    const timeSlider = playerContainer.querySelector(".jw-slider-time");
+                    buttonContainer.replaceChild(timeSlider, spacer);
+
+                    const rewindContainer = playerContainer.querySelector(".jw-display-icon-rewind");
+                    const forwardContainer = rewindContainer.cloneNode(true);
+                    const forwardDisplayButton = forwardContainer.querySelector(".jw-icon-rewind");
+                    forwardDisplayButton.style.transform = "scaleX(-1)";
+                    forwardDisplayButton.ariaLabel = "Forward 10 Seconds";
+                    const nextContainer = playerContainer.querySelector(".jw-display-icon-next");
+                    nextContainer.parentNode.insertBefore(forwardContainer, nextContainer);
+
+                    playerContainer.querySelector(".jw-display-icon-next").style.display = "none";
+                    const rewindControlBarButton = buttonContainer.querySelector(".jw-icon-rewind");
+                    const forwardControlBarButton = rewindControlBarButton.cloneNode(true);
+                    forwardControlBarButton.style.transform = "scaleX(-1)";
+                    forwardControlBarButton.ariaLabel = "Forward 10 Seconds";
+                    rewindControlBarButton.parentNode.insertBefore(forwardControlBarButton, rewindControlBarButton.nextElementSibling);
+
+                    [forwardDisplayButton, forwardControlBarButton].forEach((button) => {
+                        button.onclick = () => {
+                            jwplayer().seek(jwplayer().getPosition() + 10);
+                        };
+                    });
+                });
+            }
+
+            function determineSourceType(url) {
+                if (url.endsWith(".mkv") || url.endsWith(".mp4")) {
+                    return "mp4";
+                } else if (url.endsWith(".m3u8")) {
+                    return "hls";
+                } else if (url.endsWith(".mpd")) {
+                    return "dash";
+                }
+                return "mp4"; // Default to MP4
+            }
+
+            setupPlayer(
+                [
+                    "https://webtvstream.bhtelecom.ba/hls6/arena2.mpd"
+                ],
+                {
+                    keyId: "c18b6aa739be4c0b774605fcfb5d6b68",
+                    key: "e41c3a6f7532b2e3a828d9580124c89d"
+                },
+                ""
+            );
+        }
     </script>
 </body>
 </html>
