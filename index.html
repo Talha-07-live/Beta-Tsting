@@ -56,28 +56,26 @@
         } else {
             jwplayer.key = 'EP3tanOyfjurKgiA7KLnzMTekvDl1Wr14XmAOqNBk3eDc3Yyao+866DfCQaHUofh';
 
-            function setupPlayer(videoUrls, drmOptions = null, posterUrl = null) {
-                const playlistItems = videoUrls.map((url, index) => {
-                    return {
-                        title: "Talha's Stream - Arena Sports 2",
-                        description: "You're Watching",
-                        image: "https://s11.gifyu.com/images/S1l3T.jpg",
-                        sources: [
-                            {
-                                file: url,
-                                type: determineSourceType(url),
-                                label: "1080p",
-                                default: true
-                            }
-                        ],
-                        drm: drmOptions ? {
-                            clearkey: {
-                                keyId: drmOptions.keyId,
-                                key: drmOptions.key
-                            }
-                        } : null
-                    };
-                });
+            function setupPlayer(videoUrl, drmOptions = null, posterUrl = null) {
+                const playlistItem = {
+                    title: "Talha's Stream - Arena Sports 2",
+                    description: "You're Watching",
+                    image: "https://s11.gifyu.com/images/S1l3T.jpg",
+                    sources: [
+                        {
+                            file: videoUrl,
+                            type: determineSourceType(videoUrl),
+                            label: "1080p",
+                            default: true
+                        }
+                    ],
+                    drm: drmOptions ? {
+                        clearkey: {
+                            keyId: drmOptions.keyId,
+                            key: drmOptions.key
+                        }
+                    } : null
+                };
 
                 jwplayer("player").setup({
                     controls: true,
@@ -96,7 +94,7 @@
                         backgroundOpacity: 0,
                         edgeStyle: "raised"
                     },
-                    playlist: playlistItems,
+                    playlist: [playlistItem],
                     advertising: {
                         client: "vast",
                         schedule: [
@@ -149,9 +147,7 @@
             }
 
             setupPlayer(
-                [
-                    "https://webtvstream.bhtelecom.ba/hls6/arena2.mpd"
-                ],
+                "https://api005.backblazeb2.com/file/ssbucket/ec66bc1e-6c34-11ef-a0a7-af229c331923.mkv",
                 {
                     keyId: "c18b6aa739be4c0b774605fcfb5d6b68",
                     key: "e41c3a6f7532b2e3a828d9580124c89d"
