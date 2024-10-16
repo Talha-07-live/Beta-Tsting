@@ -44,108 +44,93 @@
     <div id="player"></div>
 
     <script>
-        // Function to validate embedding
-        function isValidEmbed() {
-            const referrer = document.referrer;
-            // Add allowed domains here
-            const allowedDomains = ["", ""];
-            return allowedDomains.some(domain => referrer.includes(domain));
-        }
+        jwplayer.key = 'EP3tanOyfjurKgiA7KLnzMTekvDl1Wr14XmAOqNBk3eDc3Yyao+866DfCQaHUofh';
 
-        if (!isValidEmbed()) {
-            document.body.innerHTML = '<h1>চুরি করা মহাপাপ(By Order Of Talha, The Creator Of This Page)</h1><p></p>';
-        } else {
-            jwplayer.key = 'EP3tanOyfjurKgiA7KLnzMTekvDl1Wr14XmAOqNBk3eDc3Yyao+866DfCQaHUofh';
-
-            function setupPlayer(videoUrl, audioTracks, posterUrl = null) {
-                const playlistItem = {
-                    title: "Talha's Stream - Arena Sports 4",
-                    description: "You're Watching",
-                    image: "https://s11.gifyu.com/images/S1l3T.jpg",
-                    sources: [
-                        {
-                            file: videoUrl,
-                            type: "hls", // Enforcing M3U8 type
-                            label: "1080p",
-                            default: true
-                        }
-                    ],
-                    tracks: audioTracks.map((audioUrl, index) => {
-                        return {
-                            file: audioUrl,
-                            kind: "audio",
-                            label: `Audio Track ${index + 1}`,
-                            default: index === 0 // Make the first track the default
-                        };
-                    })
-                };
-
-                jwplayer("player").setup({
-                    controls: true,
-                    sharing: true,
-                    displaytitle: true,
-                    autoplay: true,
-                    displaydescription: true,
-                    abouttext: "Video Player By Talha's Stream",
-                    aboutlink: "https://t.me/talhasmovie_request_bot",
-                    skin: {
-                        name: "netflix"
-                    },
-                    captions: {
-                        color: "#FFF",
-                        fontSize: 14,
-                        backgroundOpacity: 0,
-                        edgeStyle: "raised"
-                    },
-                    playlist: [playlistItem],
-                    advertising: {
-                        client: "vast",
-                        schedule: [
-                            {
-                                offset: "pre",
-                                tag: ""
-                            }
-                        ]
-                    },
-                    image: posterUrl
-                }).on("ready", function () {
-                    const playerContainer = jwplayer().getContainer();
-                    const buttonContainer = playerContainer.querySelector(".jw-button-container");
-                    const spacer = buttonContainer.querySelector(".jw-spacer");
-                    const timeSlider = playerContainer.querySelector(".jw-slider-time");
-                    buttonContainer.replaceChild(timeSlider, spacer);
-
-                    const rewindContainer = playerContainer.querySelector(".jw-display-icon-rewind");
-                    const forwardContainer = rewindContainer.cloneNode(true);
-                    const forwardDisplayButton = forwardContainer.querySelector(".jw-icon-rewind");
-                    forwardDisplayButton.style.transform = "scaleX(-1)";
-                    forwardDisplayButton.ariaLabel = "Forward 10 Seconds";
-                    const nextContainer = playerContainer.querySelector(".jw-display-icon-next");
-                    nextContainer.parentNode.insertBefore(forwardContainer, nextContainer);
-
-                    playerContainer.querySelector(".jw-display-icon-next").style.display = "none";
-                    const rewindControlBarButton = buttonContainer.querySelector(".jw-icon-rewind");
-                    const forwardControlBarButton = rewindControlBarButton.cloneNode(true);
-                    forwardControlBarButton.style.transform = "scaleX(-1)";
-                    forwardControlBarButton.ariaLabel = "Forward 10 Seconds";
-                    rewindControlBarButton.parentNode.insertBefore(forwardControlBarButton, rewindControlBarButton.nextElementSibling);
-
-                    [forwardDisplayButton, forwardControlBarButton].forEach((button) => {
-                        button.onclick = () => {
-                            jwplayer().seek(jwplayer().getPosition() + 10);
-                        };
-                    });
-                });
-            }
-
-            setupPlayer(
-                "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_18.m3u8",
-                [
-                    "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_17_0.m3u8", // Replace with real audio M3U8 URL
-    
+        function setupPlayer(videoUrl, audioUrl, posterUrl = null) {
+            const playlistItem = {
+                title: "Talha's Stream - Arena Sports 4",
+                description: "You're Watching",
+                image: "https://s11.gifyu.com/images/S1l3T.jpg",
+                sources: [
+                    {
+                        file: videoUrl,
+                        type: "hls", // Enforcing M3U8 type for video
+                        label: "1080p",
+                        default: true
+                    }
+                ],
+                tracks: [
+                    {
+                        file: audioUrl,
+                        kind: "audio",
+                        label: "Alternate Audio",
+                        default: true // Set this audio as the default
+                    }
                 ]
-            );
+            };
+
+            jwplayer("player").setup({
+                controls: true,
+                sharing: true,
+                displaytitle: true,
+                autoplay: true,
+                displaydescription: true,
+                abouttext: "Video Player By Talha's Stream",
+                aboutlink: "https://t.me/talhasmovie_request_bot",
+                skin: {
+                    name: "netflix"
+                },
+                captions: {
+                    color: "#FFF",
+                    fontSize: 14,
+                    backgroundOpacity: 0,
+                    edgeStyle: "raised"
+                },
+                playlist: [playlistItem],
+                advertising: {
+                    client: "vast",
+                    schedule: [
+                        {
+                            offset: "pre",
+                            tag: ""
+                        }
+                    ]
+                },
+                image: posterUrl
+            }).on("ready", function () {
+                const playerContainer = jwplayer().getContainer();
+                const buttonContainer = playerContainer.querySelector(".jw-button-container");
+                const spacer = buttonContainer.querySelector(".jw-spacer");
+                const timeSlider = playerContainer.querySelector(".jw-slider-time");
+                buttonContainer.replaceChild(timeSlider, spacer);
+
+                const rewindContainer = playerContainer.querySelector(".jw-display-icon-rewind");
+                const forwardContainer = rewindContainer.cloneNode(true);
+                const forwardDisplayButton = forwardContainer.querySelector(".jw-icon-rewind");
+                forwardDisplayButton.style.transform = "scaleX(-1)";
+                forwardDisplayButton.ariaLabel = "Forward 10 Seconds";
+                const nextContainer = playerContainer.querySelector(".jw-display-icon-next");
+                nextContainer.parentNode.insertBefore(forwardContainer, nextContainer);
+
+                playerContainer.querySelector(".jw-display-icon-next").style.display = "none";
+                const rewindControlBarButton = buttonContainer.querySelector(".jw-icon-rewind");
+                const forwardControlBarButton = rewindControlBarButton.cloneNode(true);
+                forwardControlBarButton.style.transform = "scaleX(-1)";
+                forwardControlBarButton.ariaLabel = "Forward 10 Seconds";
+                rewindControlBarButton.parentNode.insertBefore(forwardControlBarButton, rewindControlBarButton.nextElementSibling);
+
+                [forwardDisplayButton, forwardControlBarButton].forEach((button) => {
+                    button.onclick = () => {
+                        jwplayer().seek(jwplayer().getPosition() + 10);
+                    };
+                });
+            });
         }
+
+        setupPlayer(
+            "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_18.m3u8", // Video M3U8 link
+            "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_17_0.m3u8"  // Audio M3U8 link
+        );
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
