@@ -53,33 +53,11 @@
         }
 
         if (!isValidEmbed()) {
-            document.body.innerHTML = '<h1>চুরি করা মহাপাপ(By Order Of Talha, The Creator Of This Page)</h1>';
+            document.body.innerHTML = '<h1>চুরি করা মহাপাপ(By Order Of Talha, The Creator Of This Page)</h1><p></p>';
         } else {
             jwplayer.key = 'EP3tanOyfjurKgiA7KLnzMTekvDl1Wr14XmAOqNBk3eDc3Yyao+866DfCQaHUofh';
 
-            function setupPlayer(videoUrl, audioUrl, posterUrl = null) {
-                const playlistItem = {
-                    title: "Talha's Stream - Arena Sports 4",
-                    description: "You're Watching",
-                    image: "https://s11.gifyu.com/images/S1l3T.jpg",
-                    sources: [
-                        {
-                            file: videoUrl,
-                            type: "hls", // Enforcing M3U8 type for video
-                            label: "1080p",
-                            default: true
-                        }
-                    ],
-                    tracks: [
-                        {
-                            file: audioUrl,
-                            kind: "audio",
-                            label: "English Audio",
-                            default: true // Set this audio as the default
-                        }
-                    ]
-                };
-
+            function setupPlayer() {
                 jwplayer("player").setup({
                     controls: true,
                     sharing: true,
@@ -97,7 +75,47 @@
                         backgroundOpacity: 0,
                         edgeStyle: "raised"
                     },
-                    playlist: [playlistItem],
+                    playlist: [{
+                        title: "Multi-Language Stream",
+                        description: "Choose your video quality and audio track.",
+                        sources: [
+                            {
+                                file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_18.m3u8",
+                                label: "540p",
+                                type: "hls"
+                            },
+                            {
+                                file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_19.m3u8",
+                                label: "1080p",
+                                type: "hls"
+                            },
+                            {
+                                file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_20.m3u8",
+                                label: "720p",
+                                type: "hls"
+                            },
+                            {
+                                file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_21.m3u8",
+                                label: "720p (low bandwidth)",
+                                type: "hls"
+                            }
+                        ],
+                        tracks: [
+                            {
+                                file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_11_0.m3u8",
+                                kind: "audio",
+                                label: "English",
+                                language: "EN",
+                                default: true
+                            },
+                            {
+                                file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_17_0.m3u8",
+                                kind: "audio",
+                                label: "Bangla",
+                                language: "BN"
+                            }
+                        ]
+                    }],
                     advertising: {
                         client: "vast",
                         schedule: [
@@ -106,8 +124,7 @@
                                 tag: ""
                             }
                         ]
-                    },
-                    image: posterUrl
+                    }
                 }).on("ready", function () {
                     const playerContainer = jwplayer().getContainer();
                     const buttonContainer = playerContainer.querySelector(".jw-button-container");
@@ -138,10 +155,7 @@
                 });
             }
 
-            setupPlayer(
-                "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_18.m3u8", // Video M3U8 link
-                "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_17_0.m3u8"  // Audio M3U8 link
-            );
+            setupPlayer();
         }
     </script>
 
