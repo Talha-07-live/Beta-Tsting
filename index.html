@@ -1,1 +1,156 @@
-<iframe src="//stream.crichd.sc/update/bteu.php" width="100%" height="500px" marginheight="0" marginwidth="0" scrolling="no" frameborder="0" allowfullscreen allow="encrypted-media"></iframe>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talha's Player</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://content.jwplatform.com/libraries/KB5zFt7A.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #player {
+            position: absolute;
+            width: 100% !important;
+            height: 100% !important;
+            background-color: #000;
+        }
+        .jw-icon-rewind,
+        .jw-icon-forward {
+            filter: brightness(0) invert(1); /* Make icons white */
+        }
+        .jw-text-live {
+            color: red;
+        }
+        .jw-button-container {
+            display: flex;
+            justify-content: center; /* Center buttons horizontally */
+            gap: 10px; /* Adjust the gap between buttons */
+        }
+        .jw-icon-fullscreen,
+        .jw-icon-share,
+        .jw-icon-pip {
+            margin: 0 5px; /* Adjust margin as needed */
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+
+    <script>
+        // Function to validate embedding
+        function isValidEmbed() {
+            const referrer = document.referrer;
+            // Add allowed domains here
+            const allowedDomains = ["https://talhas2.footballl.rf.gd/", "https://t.talhasstream-football-2.000.pe/"];
+            return allowedDomains.some(domain => referrer.includes(domain));
+        }
+
+        if (!isValidEmbed()) {
+            document.body.innerHTML = '<h1>চুরি করা মহাপাপ(By Order Of Talha, The Creator Of This Page)</h1><p></p>';
+        } else {
+            jwplayer.key = 'EP3tanOyfjurKgiA7KLnzMTekvDl1Wr14XmAOqNBk3eDc3Yyao+866DfCQaHUofh';
+
+            function setupPlayer(videoUrls, drmOptions = null, posterUrl = null) {
+                const playlistItems = videoUrls.map((url, index) => {
+                    return {
+                        title: "Talha's Stream - Arena Sports 4",
+                        description: "You're Watching",
+                        image: "https://s11.gifyu.com/images/S1l3T.jpg",
+                        sources: [
+                            {
+                                file: url,
+                                type: "hls", // Enforcing M3U8 type
+                                label: "1080p",
+                                default: true
+                            }
+                        ],
+                        drm: drmOptions ? {
+                            clearkey: {
+                                keyId: drmOptions.keyId,
+                                key: drmOptions.key
+                            }
+                        } : null
+                    };
+                });
+
+                jwplayer("player").setup({
+                    controls: true,
+                    sharing: true,
+                    displaytitle: true,
+                    autoplay: true,
+                    displaydescription: true,
+                    abouttext: "Video Player By Talha's Stream",
+                    aboutlink: "https://t.me/talhasmovie_request_bot",
+                    skin: {
+                        name: "netflix"
+                    },
+                    captions: {
+                        color: "#FFF",
+                        fontSize: 14,
+                        backgroundOpacity: 0,
+                        edgeStyle: "raised"
+                    },
+                    playlist: playlistItems,
+                    advertising: {
+                        client: "vast",
+                        schedule: [
+                            {
+                                offset: "pre",
+                                tag: ""
+                            }
+                        ]
+                    },
+                    image: posterUrl
+                }).on("ready", function () {
+                    const playerContainer = jwplayer().getContainer();
+                    const buttonContainer = playerContainer.querySelector(".jw-button-container");
+                    const spacer = buttonContainer.querySelector(".jw-spacer");
+                    const timeSlider = playerContainer.querySelector(".jw-slider-time");
+                    buttonContainer.replaceChild(timeSlider, spacer);
+
+                    const rewindContainer = playerContainer.querySelector(".jw-display-icon-rewind");
+                    const forwardContainer = rewindContainer.cloneNode(true);
+                    const forwardDisplayButton = forwardContainer.querySelector(".jw-icon-rewind");
+                    forwardDisplayButton.style.transform = "scaleX(-1)";
+                    forwardDisplayButton.ariaLabel = "Forward 10 Seconds";
+                    const nextContainer = playerContainer.querySelector(".jw-display-icon-next");
+                    nextContainer.parentNode.insertBefore(forwardContainer, nextContainer);
+
+                    playerContainer.querySelector(".jw-display-icon-next").style.display = "none";
+                    const rewindControlBarButton = buttonContainer.querySelector(".jw-icon-rewind");
+                    const forwardControlBarButton = rewindControlBarButton.cloneNode(true);
+                    forwardControlBarButton.style.transform = "scaleX(-1)";
+                    forwardControlBarButton.ariaLabel = "Forward 10 Seconds";
+                    rewindControlBarButton.parentNode.insertBefore(forwardControlBarButton, rewindControlBarButton.nextElementSibling);
+
+                    [forwardDisplayButton, forwardControlBarButton].forEach((button) => {
+                        button.onclick = () => {
+                            jwplayer().seek(jwplayer().getPosition() + 10);
+                        };
+                    });
+                });
+            }
+
+            setupPlayer(
+                [
+                    "https://drmlive.in/discoveryplus/discoveryhd.m3u8"
+                ],
+                {
+                    keyId: "c18b6aa739be4c0b774605fcfb5d6b68",
+                    key: "e41c3a6f7532b2e3a828d9580124c89d"
+                }
+            );
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
