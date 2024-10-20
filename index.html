@@ -3,84 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M3U8 Video and Audio Player</title>
-    <script src="https://content.jwplatform.com/libraries/KB5zFt7A.js"></script>
+    <title>Saka Player - Multi Stream</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
         }
-        #player {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+
+        #video-player {
+            width: 80%;
+            height: 80%;
+            background-color: #000;
         }
     </style>
 </head>
 <body>
-    <div id="player"></div>
+    <video id="video-player" controls></video>
 
     <script>
-        jwplayer("player").setup({
-            playlist: [{
-                title: "Multi-Language Stream",
-                description: "Choose your video quality and audio track.",
-                sources: [
-                    {
-                        file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_18.m3u8",
-                        label: "540p",
-                        type: "hls"
-                    },
-                    {
-                        file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_19.m3u8",
-                        label: "1080p",
-                        type: "hls"
-                    },
-                    {
-                        file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_20.m3u8",
-                        label: "720p",
-                        type: "hls"
-                    },
-                    {
-                        file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_21.m3u8",
-                        label: "720p (low bandwidth)",
-                        type: "hls"
-                    }
-                ],
-                tracks: [
-                    {
-                        file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_11_0.m3u8",
-                        kind: "audio",
-                        label: "English",
-                        language: "en",
-                        default: true
-                    },
-                    {
-                        file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_12_0.m3u8",
-                        kind: "audio",
-                        label: "Hindi",
-                        language: "hi"
-                    },
-                    {
-                        file: "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_17_0.m3u8",
-                        kind: "audio",
-                        label: "Bengali",
-                        language: "bn"
-                    }
-                ]
-            }],
-            controls: true,
-            autoplay: true,
-            displaytitle: true,
-            displaydescription: true,
-            width: "100%",
-            height: "100%",
-            abouttext: "Talha's Player",
-            aboutlink: "https://t.me/talhasmovie_request_bot"
-        });
+        const videoUrl = "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_19.m3u8"; // Video URL (1080p)
+        const audioUrl = "https://food-dlvr-ott.akamaized.net/primary/4/686a061683e44b518cdf57677e352ef3/index_17_0.m3u8"; // Bengali Audio URL
+
+        const videoElement = document.getElementById('video-player');
+
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(videoUrl);
+            hls.attachMedia(videoElement);
+
+            const audioElement = new Audio(); // Create an audio element for the audio track
+
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                videoElement.play();
+                // Now load the audio stream
+                loadAudioTrack(audioUrl);
+            });
+
+            function loadAudioTrack(audioUrl) {
+                const audioHls = new Hls();
+                audioHls.loadSource(audioUrl);
+                audioHls.attachMedia(audioElement);
+
+                audioHls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    audioElement.play(); // Play the audio when ready
+                });
+            }
+        } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+            // For Safari
+            videoElement.src = videoUrl;
+            videoElement.addEventListener('canplay', function() {
+                videoElement.play();
+            });
+
+            // Load the audio stream for Safari
+            const audioElement = new Audio(audioUrl);
+            audioElement.play();
+        } else {
+            alert('Your browser does not support M3U8 playback');
+        }
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </body>
 </html>
